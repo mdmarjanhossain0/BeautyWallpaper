@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.appbytes.beautywallpaper.models.CacheImage
 import com.appbytes.beautywallpaper.persistance.main.ImageDao
 
-@Database(entities = [CacheImage::class], version = 1)
+@Database(entities = [CacheImage::class], version = 2)
 abstract class WallpaperDatabase : RoomDatabase (){
 
 

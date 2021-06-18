@@ -14,4 +14,6 @@ interface HomeRepository {
             client_id: String = Constants.unsplash_access_key,
             stateEvent: StateEvent
     ) : Flow<DataState<HomeViewState>>
+
+//    fun getCacheData(stateEvent: StateEvent): Flow<DataState<HomeViewState>>
 }

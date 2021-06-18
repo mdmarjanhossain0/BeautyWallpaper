@@ -1,10 +1,13 @@
 package com.appbytes.beautywallpaper.models
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
 
+@Parcelize
 @Entity(tableName = "image")
 data class CacheImage(
 
@@ -35,4 +38,4 @@ data class CacheImage(
 
         @ColumnInfo(name = "downloads")
         var downloads : Int? = null
-)
+) : Parcelable

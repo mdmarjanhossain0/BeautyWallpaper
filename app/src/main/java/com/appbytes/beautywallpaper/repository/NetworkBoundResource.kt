@@ -33,8 +33,6 @@ constructor(
         // ****** STEP 2: MAKE NETWORK CALL, SAVE RESULT TO CACHE ******
         val apiResult = safeApiCall(dispatcher){apiCall.invoke()}
 
-        Log.d(TAG, "Api Result " + apiResult.toString())
-
         when(apiResult){
             is ApiResult.GenericError -> {
                 emit(
@@ -93,7 +91,6 @@ constructor(
     }
 
     private suspend fun returnCache(markJobComplete: Boolean): DataState<ViewState> {
-        Log.d(TAG,"sdfdsfdsfdsfdsfdfdfsdfdsfdsf")
 
         val cacheResult = safeCacheCall(dispatcher){cacheCall.invoke()}
 

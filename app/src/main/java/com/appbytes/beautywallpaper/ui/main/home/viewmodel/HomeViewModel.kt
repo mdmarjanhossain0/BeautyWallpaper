@@ -1,4 +1,4 @@
-package com.appbytes.beautywallpaper.ui.main.home
+package com.appbytes.beautywallpaper.ui.main.home.viewmodel
 
 import android.util.Log
 import androidx.hilt.Assisted
@@ -36,16 +36,33 @@ class HomeViewModel
 
 
         if(!isJobAlreadyActive(stateEvent)){
-            val job = mainRepository.getPhotos(
+            val job = when(stateEvent) {
+                is HomeStateEvent.GetNewPhotos -> {
+                    if(stateEvent.clearLayoutManagerState){
+                        clearLayoutManagerState()
+                    }
+                    Log.d(TAG, "inner event page number " +stateEvent.page_number)
+                    mainRepository.getPhotos(
+                            pageNumber = stateEvent.page_number,
+                            stateEvent = stateEvent
+                    )
+                }
+
+                /*is HomeStateEvent.CacheData -> {
+                    mainRepository.getCacheData(stateEvent)
+                }*/
+                else ->
+                    mainRepository.getPhotos(
                             pageNumber = 1,
                             stateEvent = stateEvent
                     )
+            }
             launchJob(stateEvent, job)
 
         }
     }
 
     override fun initNewViewState(): HomeViewState {
-        return HomeViewState(null)
+        return HomeViewState()
     }
 }
