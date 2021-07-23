@@ -18,8 +18,8 @@ import com.appbytes.beautywallpaper.ui.main.home.viewmodel.HomeViewModel
 
 abstract class BaseHomeFragment constructor(
     @LayoutRes
-    private val layoutRes: Int,
-): Fragment(layoutRes) {
+    private val layoutRes: Int
+): Fragment(layoutRes), UICommunicationListener {
 
 
     private val TAG: String = "BaseHomeFragment"
@@ -30,7 +30,7 @@ abstract class BaseHomeFragment constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        setupActionBarWithNavController(R.id.homeFragment, activity as AppCompatActivity)
+        setupActionBarWithNavController(R.id.homeFragment, activity as AppCompatActivity)
         setupChannel()
     }
 
@@ -39,20 +39,22 @@ abstract class BaseHomeFragment constructor(
 
     fun setupActionBarWithNavController(fragmentId: Int, activity: AppCompatActivity){
         val appBarConfiguration = AppBarConfiguration(setOf(fragmentId))
-        /*NavigationUI.setupActionBarWithNavController(
+        NavigationUI.setupActionBarWithNavController(
             activity,
             findNavController(),
             appBarConfiguration
-        )*/
+        )
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        try{
+        /*try{
             uiCommunicationListener = context as UICommunicationListener
         }catch(e: ClassCastException){
             Log.e(TAG, "$context must implement UICommunicationListener" )
-        }
+        }*/
+
+        uiCommunicationListener = this
 
     }
 }

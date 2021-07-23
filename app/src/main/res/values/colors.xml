@@ -9,10 +9,36 @@
     <color name="white">#FFFFFFFF</color>
 
 
-    <color name="colorAccent">#000000</color>
+<!--    <color name="colorAccent">#000000</color>-->
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="coloredit">#efefef</color>
     <color name="colorEditHintText">#808080</color>
     <color name="colortrendingLine">#d4c2bcbc</color>
+    <color name="colorAccentYellow">#FF9800</color>
+    <color name="bottomnav_color">#352A54</color>
+
+
+
+
+    <!-- Main theme colors -->
+    <color name="colorPrimary">#fff</color>
+    <color name="colorPrimaryDark">#7d7d7d</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- Secondary theme colors -->
+    <color name="tealDark">#0094DE</color>
+    <color name="tealLight">#9FDAF7</color>
+    <color name="link_blue">#0000EE</color>
+
+    <!-- other -->
+    <color name="red">#e22b2b</color>
+    <color name="red2">#fc8b8d</color>
+    <color name="grey1">#f2f2f2</color>
+    <color name="grey2">#c4c4c4</color>
+    <color name="grey3">#a8a8a8</color>
+    <color name="grey4">#7d7d7d</color>
+    <color name="grey5">#5c5c5c</color>
+
+    <color name="default_background_color">#EEEEEE</color>
 </resources>

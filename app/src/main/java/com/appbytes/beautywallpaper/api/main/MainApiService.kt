@@ -1,9 +1,6 @@
 package com.appbytes.beautywallpaper.api.main
 
-import com.appbytes.beautywallpaper.api.main.response.Collection
-import com.appbytes.beautywallpaper.api.main.response.Download
-import com.appbytes.beautywallpaper.api.main.response.Image
-import com.appbytes.beautywallpaper.api.main.response.Trending
+import com.appbytes.beautywallpaper.api.main.response.*
 import com.google.gson.JsonElement
 import retrofit2.Call
 import retrofit2.http.GET
@@ -27,18 +24,18 @@ interface MainApiService {
     ): List<Image>
 
 
-    @GET("collections")
+    @GET("/collections")
     suspend fun getCollections (
             @Query("page") page: Int?,
-            @Query("per_page") perPage: Int?,
+            @Query("per_page") per_page: Int?,
             @Query("client_id") client_id: String? /*, @Query("order_by") String orderBy*/
-    ): List<Collection>
+    ): List<Collections>
 
     @GET("collections/{id}/photos")
     suspend fun getCollectionsById (
             @Path("id") id: String?,
             @Query("page") page: Int?,
-            @Query("per_page") perPage: Int?,
+            @Query("per_page") per_page: Int?,
             @Query("client_id") client_id: String? /*, @Query("order_by") String orderBy*/
     ): List<Image>
 
@@ -72,7 +69,7 @@ interface MainApiService {
     @GET("collections")
     suspend fun getTrending(@Query("client_id") client_id: String?): Call<JsonElement?>?
 
-    @GET("search/photos")
+    @GET("search/photos/")
     fun getSearch(
         @Query("query") query: String?,
         @Query("page") page: Int?,

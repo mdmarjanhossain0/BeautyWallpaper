@@ -15,7 +15,7 @@
         android:theme="@style/Theme.BeautyWallpaper">
         <activity
             android:name=".ui.main.MainActivity"
-            android:theme="@style/AppTheme.NoTitleBar"
+            android:theme="@style/AppTheme"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

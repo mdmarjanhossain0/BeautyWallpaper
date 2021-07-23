@@ -3,7 +3,7 @@ package com.appbytes.beautywallpaper.api.main.response
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Collection (
+data class Collections (
 
         @SerializedName("id") @Expose var id : String,
         @SerializedName("title") @Expose var title : String,

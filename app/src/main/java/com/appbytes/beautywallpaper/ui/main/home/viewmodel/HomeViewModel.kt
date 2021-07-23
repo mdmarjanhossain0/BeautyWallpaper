@@ -4,9 +4,7 @@ import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import com.appbytes.beautywallpaper.api.main.MainApiService
-import com.appbytes.beautywallpaper.repository.main.HomeRepository
+import com.appbytes.beautywallpaper.repository.home.HomeRepository
 import com.appbytes.beautywallpaper.ui.BaseViewModel
 import com.appbytes.beautywallpaper.ui.main.home.state.HomeStateEvent
 import com.appbytes.beautywallpaper.ui.main.home.state.HomeViewState
@@ -33,19 +31,22 @@ class HomeViewModel
 
     override fun setStateEvent(stateEvent: StateEvent) {
 
-
-
         if(!isJobAlreadyActive(stateEvent)){
             val job = when(stateEvent) {
                 is HomeStateEvent.GetNewPhotos -> {
                     if(stateEvent.clearLayoutManagerState){
                         clearLayoutManagerState()
                     }
-                    Log.d(TAG, "inner event page number " +stateEvent.page_number)
+                    Log.d(TAG, "inner event page number " + getPage())
+                    Log.d(TAG, "finish inner event page " + getPage())
                     mainRepository.getPhotos(
-                            pageNumber = stateEvent.page_number,
+                            pageNumber = getPage(),
                             stateEvent = stateEvent
                     )
+                }
+
+                is HomeStateEvent.SetLikeEvent -> {
+                    mainRepository.setLike(stateEvent.clickImage, getPage(),stateEvent = stateEvent)
                 }
 
                 /*is HomeStateEvent.CacheData -> {

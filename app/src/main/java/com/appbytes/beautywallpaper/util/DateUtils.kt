@@ -1,4 +1,4 @@
-package com.codingwithmitch.openapi.util
+package com.appbytes.beautywallpaper.util
 
 import java.text.SimpleDateFormat
 import java.util.*

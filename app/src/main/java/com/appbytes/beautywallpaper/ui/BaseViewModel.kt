@@ -4,10 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.appbytes.beautywallpaper.util.DataChannelManager
 import com.appbytes.beautywallpaper.util.DataState
 import com.appbytes.beautywallpaper.util.StateEvent
 import com.appbytes.beautywallpaper.util.StateMessage
-import com.codingwithmitch.openapi.util.DataChannelManager
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.Flow
 @ExperimentalCoroutinesApi
 abstract class BaseViewModel<ViewState> : ViewModel()
 {
-    val TAG: String = "AppDebug"
+    val TAG = "BaseViewModel"
 
     private val _viewState: MutableLiveData<ViewState> = MutableLiveData()
 

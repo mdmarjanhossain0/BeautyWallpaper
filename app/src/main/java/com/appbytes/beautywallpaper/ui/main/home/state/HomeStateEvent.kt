@@ -1,5 +1,6 @@
 package com.appbytes.beautywallpaper.ui.main.home.state
 
+import com.appbytes.beautywallpaper.models.CacheImage
 import com.appbytes.beautywallpaper.util.Constants
 import com.appbytes.beautywallpaper.util.StateEvent
 
@@ -16,7 +17,18 @@ sealed class HomeStateEvent : StateEvent {
         }
     }
 
-    class CacheData : HomeStateEvent() {
+    class SetLikeEvent (
+            val clickImage : CacheImage = CacheImage(
+                    id = "none"
+            )
+    ) : HomeStateEvent() {
+        override fun errorInfo(): String {
+            return "Cache Not Found"
+        }
+
+    }
+
+    class CacheImageData : HomeStateEvent() {
         override fun errorInfo(): String {
             return "Cache Not Found"
         }

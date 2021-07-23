@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_search"
+    app:startDestination="@id/searchHistoryFragment">
+
+    <fragment
+        android:id="@+id/searchHistoryFragment"
+        android:name="com.appbytes.beautywallpaper.ui.main.search.SearchHistoryFragment"
+        android:label="SearchHistoryFragment" >
+        <action
+            android:id="@+id/action_searchHistoryFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.appbytes.beautywallpaper.ui.main.search.SearchResultFragment"
+        android:label="fragment_search_result"
+        tools:layout="@layout/fragment_search_result" >
+        <argument
+            android:name="searchKey"
+            app:argType="string"
+            android:defaultValue="testSearchKey" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_searchDetailsFragment"
+            app:destination="@id/searchDetailsFragment" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_searchHistoryFragment"
+            app:destination="@id/searchHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchDetailsFragment"
+        android:name="com.appbytes.beautywallpaper.ui.main.search.SearchDetailsFragment"
+        android:label="fragment_search_details"
+        tools:layout="@layout/fragment_search_details" >
+        <action
+            android:id="@+id/action_searchDetailsFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+        <action
+            android:id="@+id/action_searchDetailsFragment_to_searchHistoryFragment"
+            app:destination="@id/searchHistoryFragment" />
+    </fragment>
+</navigation>

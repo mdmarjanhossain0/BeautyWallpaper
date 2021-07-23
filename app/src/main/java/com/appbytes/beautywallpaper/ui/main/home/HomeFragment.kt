@@ -1,34 +1,35 @@
 package com.appbytes.beautywallpaper.ui.main.home
 
+import android.app.SearchManager
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.appbytes.beautywallpaper.R
-import com.appbytes.beautywallpaper.api.main.MainApiService
-import com.appbytes.beautywallpaper.api.main.response.Image
 import com.appbytes.beautywallpaper.models.CacheImage
+import com.appbytes.beautywallpaper.ui.UICommunicationListener
+import com.appbytes.beautywallpaper.ui.main.MainActivity
 import com.appbytes.beautywallpaper.ui.main.home.state.HOME_VIEW_STATE_BUNDLE_KEY
-import com.appbytes.beautywallpaper.ui.main.home.state.HomeStateEvent
 import com.appbytes.beautywallpaper.ui.main.home.state.HomeViewState
-import com.appbytes.beautywallpaper.ui.main.home.viewmodel.cacheData
-import com.appbytes.beautywallpaper.ui.main.home.viewmodel.nextPage
-import com.appbytes.beautywallpaper.ui.main.home.viewmodel.refreshFromCache
-import com.appbytes.beautywallpaper.ui.main.home.viewmodel.setLayoutManagerState
-import com.appbytes.beautywallpaper.util.Constants
+import com.appbytes.beautywallpaper.ui.main.home.viewmodel.*
+import com.appbytes.beautywallpaper.util.ErrorHandling.Companion.isPaginationDone
+import com.appbytes.beautywallpaper.util.Response
+import com.appbytes.beautywallpaper.util.StateMessageCallback
 import com.appbytes.beautywallpaper.util.TopSpacingItemDecoration
-import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
-import javax.inject.Inject
-
 
 
 @AndroidEntryPoint
@@ -36,10 +37,13 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
 
     private val TAG = "HomeFragment"
 
-    @Inject
-    lateinit var mainApiService: MainApiService
+    /*@Inject
+    lateinit var mainApiService: MainApiService*/
 
     private lateinit var recyclerAdapter: ImageAdapter
+
+
+    private lateinit var searchView: SearchView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +56,6 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
                 Log.d(TAG, "HomeViewState: restoring view state: ${viewState}")
                 Log.d(TAG, "Restore Data " + viewState.imageFields?.images?.size)
                 viewModel.setViewState(viewState)
-//                viewModel.refreshFromCache()
             }
         }
     }
@@ -74,23 +77,54 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*viewModel.setStateEvent(
-                HomeStateEvent.GetNewPhotos()
-        )*/
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        setHasOptionsMenu(true)
         Log.d(TAG, "ViewModel " + viewModel.toString())
         initRecyclerView()
         subscribeObservers()
-//        callApi()
     }
 
     private fun subscribeObservers() {
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
             Log.d(TAG, "Data " + viewState.imageFields?.images?.size)
-            viewState.imageFields?.let { it1 -> recyclerAdapter.submitList(it1.images ?: null) }
+            if(viewState.imageFields.images?.size == 0 ) {
+                home_progress.visibility = View.VISIBLE
+            }
+            else {
+                home_progress.visibility = View.GONE
+                viewState.imageFields?.let {
+                    it1 -> recyclerAdapter.submitList(it1.images ?: null) }
+            }
+        })
+
+
+        viewModel.numActiveJobs.observe(viewLifecycleOwner, Observer { jobCounter ->
+//            uiCommunicationListener.displayProgressBar(viewModel.areAnyJobsActive())
+            Log.d(TAG, "Active Job " + jobCounter)
+        })
+
+        viewModel.stateMessage.observe(viewLifecycleOwner, Observer { stateMessage ->
+            Log.d(TAG, "HomeFragment State Message " + stateMessage.toString())
+            stateMessage?.let {
+                if(isPaginationDone(stateMessage.response.message)){
+                    Log.d("AppDebug", "paginationDone")
+                }
+
+                else{
+                    uiCommunicationListener.onResponseReceived(
+                            response = it.response,
+                            stateMessageCallback = object: StateMessageCallback {
+                                override fun removeMessageFromStack() {
+                                    viewModel.clearStateMessage()
+                                }
+                            }
+                    )
+                }
+            }
         })
     }
 
-    private fun callApi() {
+    /*private fun callApi() {
         var photo: List<Image>?=null
         CoroutineScope(IO).launch {
              photo = mainApiService.getNewPhotos(1,11,Constants.unsplash_access_key)
@@ -106,44 +140,65 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
             }
         }
 
-    }
+    }*/
 
     override fun onResume() {
-        super.onResume()
         viewModel.refreshFromCache()
+        super.onResume()
     }
 
     override fun onPause() {
-        super.onPause()
         saveLayoutManagerState()
+        super.onPause()
     }
+
 
     private fun saveLayoutManagerState(){
         test_recycler_view.layoutManager?.onSaveInstanceState()?.let { lmState ->
-            Log.d(TAG, "saveLayoutManager " + lmState.toString())
             viewModel.setLayoutManagerState(lmState)
+            Log.d(TAG, "saveLayoutManager " + lmState.toString())
         }
     }
 
     override fun onItemSelected(position: Int, item: CacheImage) {
-        findNavController().navigate(R.id.action_homeFragment_to_detailsFragment)
+        findNavController().navigate(R.id.action_homeFragment_to_homeDetailsFragment)
     }
 
 
     override fun restoreListPosition() {
         viewModel.viewState.value?.imageFields?.layoutManagerState?.let { lmState ->
-            Log.d(TAG, "restoreListPositon " + lmState.toString())
             test_recycler_view?.layoutManager?.onRestoreInstanceState(lmState)
         }
+    }
+
+    override fun onLikeClick(position: Int, item: CacheImage) {
+        item.favorite = 0
+        viewModel.setLike(item)
     }
 
 
     private fun initRecyclerView(){
 
         test_recycler_view.apply {
-            layoutManager = LinearLayoutManager(this@HomeFragment.context)
+
+
+            /*val linearLayoutManager = this@HomeFragment.context?.let { ZoomRecyclerLayout(it) }
+            linearLayoutManager?.orientation = LinearLayoutManager.VERTICAL
+            linearLayoutManager?.reverseLayout = false
+            linearLayoutManager?.stackFromEnd = true
+            layoutManager = linearLayoutManager // Add your recycler view to this ZoomRecycler layout*/
+
+
+
+            val orientation = getResources().getConfiguration().orientation
+            if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+                layoutManager = GridLayoutManager(this@HomeFragment.context, 2)
+            }
+            else {
+                layoutManager = LinearLayoutManager(this@HomeFragment.context)
+            }
             val topSpacingDecorator = TopSpacingItemDecoration(5)
-            removeItemDecoration(topSpacingDecorator) // does nothing if not applied already
+//            removeItemDecoration(topSpacingDecorator) // does nothing if not applied already
             addItemDecoration(topSpacingDecorator)
 
             recyclerAdapter = ImageAdapter(
@@ -166,10 +221,98 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if(test_recycler_view != null) {
+            test_recycler_view.adapter = null
+        }
+    }
 
-//        test_recycler_view.adapter = null
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.search_menu, menu)
+        initSearchView(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId){
+            R.id.action_search -> {
+                (activity as MainActivity).navigateSearchHistoryFragment()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+
+
+    private fun initSearchView(menu: Menu){
+        activity?.apply {
+            val searchManager: SearchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+            searchView = menu.findItem(R.id.action_search).actionView as SearchView
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            searchView.maxWidth = Integer.MAX_VALUE
+            searchView.setIconifiedByDefault(true)
+            searchView.isSubmitButtonEnabled = true
+        }
+
+        // ENTER ON COMPUTER KEYBOARD OR ARROW ON VIRTUAL KEYBOARD
+        val searchPlate = searchView.findViewById(R.id.search_src_text) as EditText
+        searchPlate.setOnEditorActionListener { v, actionId, event ->
+
+            /*if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED
+                    || actionId == EditorInfo.IME_ACTION_SEARCH ) {
+                val searchQuery = v.text.toString()
+                Log.e(TAG, "SearchView: (keyboard or arrow) executing search...: ${searchQuery}")
+                viewModel.setQuery(searchQuery).let{
+                    onBlogSearchOrFilter()
+                }
+            }*/
+            true
+        }
+
+        // SEARCH BUTTON CLICKED (in toolbar)
+        val searchButton = searchView.findViewById(R.id.search_go_btn) as View
+        searchButton.setOnClickListener {
+            /*val searchQuery = searchPlate.text.toString()
+            Log.e(TAG, "SearchView: (button) executing search...: ${searchQuery}")
+            *//*viewModel.setQuery(searchQuery).let {
+                onBlogSearchOrFilter()
+            }*/
+           /* val fragment = SearchNavHostFragment.create(R.navigation.nav_search)
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.main_fragment_container, fragment,fragment.tag)
+                ?.commit()*/
+            (activity as MainActivity).navigateSearchHistoryFragment()
+        }
+    }
+
+
+    override fun onResponseReceived(response: Response, stateMessageCallback: StateMessageCallback) {
+        home_retry.visibility = View.VISIBLE
+    }
+
+    override fun displayProgressBar(isLoading: Boolean) {
+        if (isLoading) {
+            home_progress.visibility = View.VISIBLE
+        }
+        else {
+            home_progress.visibility = View.GONE
+        }
+    }
+
+    override fun expandAppBar() {
+    }
+
+    override fun hideSoftKeyboard() {
+    }
+
+    override fun isStoragePermissionGranted(): Boolean {
+        return true
     }
 
 }

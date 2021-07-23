@@ -17,13 +17,13 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                arguments = [
-//                        "room.schemaLocation": "$projectDir/schemas".toString(),
-//                        "room.incremental"   : "true"]
-//            }
-//        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation": "$projectDir/schemas".toString(),
+                        "room.incremental"   : "true"]
+            }
+        }
 
     }
     buildTypes {
@@ -174,6 +174,27 @@ dependencies {
     def hilt_viewmodels = "1.0.0-alpha01"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodels"
     kapt "androidx.hilt:hilt-compiler:$hilt_viewmodels"
+
+
+    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.8'
+
+
+    implementation 'com.github.Spikeysanju:ZoomRecylerLayout:1.0'
+
+
+    implementation 'androidx.work:work-runtime-ktx:2.6.0-alpha02'
+
+    // Lifecycle
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-service:2.3.1'
+
+
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+
+
+    implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
+
 }
 kapt {
     correctErrorTypes true

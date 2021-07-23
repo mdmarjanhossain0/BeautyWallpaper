@@ -1,17 +1,15 @@
-package com.appbytes.beautywallpaper.repository.main
+package com.appbytes.beautywallpaper.repository.home
 
 import android.util.Log
 import com.appbytes.beautywallpaper.api.main.MainApiService
 import com.appbytes.beautywallpaper.api.main.response.Image
 import com.appbytes.beautywallpaper.models.CacheImage
-import com.appbytes.beautywallpaper.persistance.main.ImageDao
+import com.appbytes.beautywallpaper.persistance.ImageDao
 import com.appbytes.beautywallpaper.repository.NetworkBoundResource
 import com.appbytes.beautywallpaper.ui.main.home.state.HomeViewState
 import com.appbytes.beautywallpaper.util.Converter
 import com.appbytes.beautywallpaper.util.DataState
 import com.appbytes.beautywallpaper.util.StateEvent
-import com.codingwithmitch.openapi.util.CacheResponseHandler
-import com.codingwithmitch.openapi.util.CacheResult
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -46,11 +44,14 @@ class HomeRepositoryImpl
                     )
                 },
                 cacheCall = {
-                    cacheDao.getImages()
-                }
+                    cacheDao.getImages(pageNumber)
+                },
+                page_number = pageNumber
 
         ){
+            var current_page_number : Int = -1
             override suspend fun updateCache(networkObject: List<Image>) {
+//                current_page_number = page
                 val imageList = Converter.makeImage(networkObject)
                 withContext(IO) {
                     for(image in imageList){
@@ -67,85 +68,53 @@ class HomeRepositoryImpl
                 }
             }
 
-            override fun handleCacheSuccess(resultObj: List<CacheImage>): DataState<HomeViewState> {
-                return DataState(
+            override fun handleCacheSuccess(resultObj: List<CacheImage>, page : Int): DataState<HomeViewState> {
+
+                val imagesAll = cacheDao.getImagesAll()
+                Log.d(TAG, "All images size check " + imagesAll.size)
+                return DataState.data(
+                        response = null,
+                        data = HomeViewState(
+                                imageFields = HomeViewState.ImageFields(
+                                        images = resultObj,
+                                        page_number = page
+                                )
+                        ),
+                        stateEvent = stateEvent
+                )
+
+                /*return DataState(
                         stateEvent = stateEvent,
                         stateMessage = null,
                         data = HomeViewState(
                                 imageFields = HomeViewState.ImageFields(
-                                    images = resultObj
+                                        images = resultObj,
+                                        page_number = page
                                 )
                         )
-                )
+                )*/
             }
 
         }.result
     }
 
-    /*override fun getCacheData(stateEvent: StateEvent): Flow<DataState<HomeViewState>> {
-        return object : NetworkBoundResource<List<Image>, List<CacheImage>, HomeViewState>(
-                dispatcher = IO,
-                stateEvent = stateEvent,
-                apiCall = {
-            mainApiService.getNewPhotos(
-                    page = pageNumber,
-                    per_page = per_page,
-                    client_id = client_id
-            )
-        },
-        cacheCall = {
-            cacheDao.getImages()
-        }
-
-        ){
-            override suspend fun updateCache(networkObject: List<Image>) {
-                val imageList = Converter.makeImage(networkObject)
-                withContext(IO) {
-                    for(image in imageList){
-                        try{
-                            // Launch each insert as a separate job to be executed in parallel
-                            launch {
-                                val insert = cacheDao.insert(image)
-//                                Log.d(TAG, insert.toString())
-                            }
-                        }catch (e: Exception){
-                            e.printStackTrace()
-                        }
-                    }
-                }
-            }
-
-            override fun handleCacheSuccess(resultObj: List<CacheImage>): DataState<HomeViewState> {
-                return DataState(
-                        stateEvent = stateEvent,
-                        stateMessage = null,
+    override fun setLike(clickImage: CacheImage, pageNumber: Int, stateEvent: StateEvent): Flow<DataState<HomeViewState>>
+            = flow {
+        cacheDao.insert(clickImage)
+        val updateResult = cacheDao.getImages(pageNumber)
+        emit(
+                DataState.data(
+                        response = null,
                         data = HomeViewState(
                                 imageFields = HomeViewState.ImageFields(
-                                        images = resultObj
+                                        images = updateResult,
+                                        page_number = pageNumber
                                 )
-                        )
+                        ),
+                        stateEvent = stateEvent
                 )
-            }
-
-        }.result
-
-    }*/
-
-    /*override fun getCacheData(stateEvent: StateEvent): Flow<DataState<HomeViewState>> = flow {
-
-        emit(
-                withContext(IO) {
-                    val result = cacheDao.getImages()
-                    DataState<HomeViewState>(
-                            data = HomeViewState(
-                                    imageFields = HomeViewState.ImageFields(
-                                            images = result
-                                    )
-                            )
-                    )
-                }
         )
-    }*/
+    }
 
 
 }

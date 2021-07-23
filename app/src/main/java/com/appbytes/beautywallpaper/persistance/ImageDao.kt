@@ -1,4 +1,4 @@
-package com.appbytes.beautywallpaper.persistance.main
+package com.appbytes.beautywallpaper.persistance
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -16,6 +16,12 @@ interface ImageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(image: CacheImage) : Long
 
+    @Query("SELECT * FROM image WHERE searchQuery = :query ORDER BY datetime DESC LIMIT (:pageNumber* 10)")
+    fun getImages(pageNumber : Int, query : String = "") : List<CacheImage>
+
     @Query("SELECT * FROM image")
-    fun getImages() : List<CacheImage>
+    fun getImagesAll() : List<CacheImage>
+
+    @Query("SELECT * FROM image WHERE favorite = 0 ORDER BY datetime DESC")
+    fun getFavoriteImages() : List<CacheImage>
 }

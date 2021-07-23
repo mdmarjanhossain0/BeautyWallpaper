@@ -8,5 +8,5 @@ import android.view.ViewGroup
 import com.appbytes.beautywallpaper.R
 
 
-class HomeDetailsFragment : BaseHomeFragment(R.layout.fragment_home_details) {
+class HomeDetailsFragment : Fragment(R.layout.fragment_home_details) {
 }

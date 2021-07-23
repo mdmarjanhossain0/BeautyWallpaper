@@ -1,6 +1,7 @@
 package com.appbytes.beautywallpaper.ui.main.home.viewmodel
 
 import android.util.Log
+import com.appbytes.beautywallpaper.models.CacheImage
 import com.appbytes.beautywallpaper.ui.main.home.state.HomeStateEvent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -23,11 +24,12 @@ private fun HomeViewModel.incrementPageNumber(){
 fun HomeViewModel.nextPage(){
     if(!isJobAlreadyActive(HomeStateEvent.GetNewPhotos())) {
         Log.d(TAG, "HomeViewModel: Attempting to load next page...")
-        incrementPageNumber()
+//        incrementPageNumber()
         Log.d(TAG, "next page set page number " + getCurrentViewStateOrNew().imageFields.page_number)
-        setStateEvent(HomeStateEvent.GetNewPhotos(
+        /*setStateEvent(HomeStateEvent.GetNewPhotos(
                 page_number = getCurrentViewStateOrNew().imageFields.page_number ?: 1
-        ))
+        ))*/
+        setStateEvent(HomeStateEvent.GetNewPhotos())
     }
 }
 
@@ -43,6 +45,13 @@ fun HomeViewModel.refreshFromCache(){
 @UseExperimental(ExperimentalCoroutinesApi::class)
 fun HomeViewModel.cacheData(){
     if(!isJobAlreadyActive(HomeStateEvent.GetNewPhotos())){
-        setStateEvent(HomeStateEvent.CacheData())
+        setStateEvent(HomeStateEvent.CacheImageData())
+    }
+}
+
+
+fun HomeViewModel.setLike(clickImage : CacheImage ) {
+    if(!isJobAlreadyActive(HomeStateEvent.SetLikeEvent())){
+        setStateEvent(HomeStateEvent.SetLikeEvent(clickImage = clickImage))
     }
 }

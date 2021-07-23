@@ -1,4 +1,4 @@
-package com.codingwithmitch.openapi.util
+package com.appbytes.beautywallpaper.util
 
 sealed class CacheResult<out T> {
 

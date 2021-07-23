@@ -1,6 +1,7 @@
 package com.appbytes.beautywallpaper.ui.main.home
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,8 @@ import com.appbytes.beautywallpaper.R
 import com.appbytes.beautywallpaper.models.CacheImage
 import com.appbytes.beautywallpaper.util.GenericViewHolder
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.codingwithmitch.openapi.util.DateUtils
+import com.like.LikeButton
+import com.like.OnLikeListener
 import kotlinx.android.synthetic.main.item_test.view.*
 import java.util.ArrayList
 
@@ -30,10 +31,10 @@ class ImageAdapter
     }
 
     private var imageList : List<CacheImage> = ArrayList()
-    private lateinit var context: Context
+//    private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        this.context = parent.context
+//        this.context = parent.context
 
         when(viewType) {
 
@@ -147,10 +148,30 @@ class ImageAdapter
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
+            cv_like.setOnClickListener {
+            }
+
+            cv_like.setOnLikeListener(object : OnLikeListener {
+                override fun liked(likeButton: LikeButton?) {
+                    item.favorite = 0
+                    interaction?.onLikeClick(adapterPosition, item)
+                }
+
+                override fun unLiked(likeButton: LikeButton?) {
+                    item.favorite = 1
+                    interaction?.onLikeClick(adapterPosition, item)
+                }
+
+            })
+
+            if(item.favorite == 0 ) {
+                cv_like.setBackgroundColor(Color.GREEN)
+            }
+
             val url = item.thumb
             Glide.with(context)
                     .load(url)
-                    .error(R.drawable.ic_user)
+                    .error(R.drawable.ic_place_holder)
                     .into(imageView)
         }
     }
@@ -160,5 +181,7 @@ class ImageAdapter
         fun onItemSelected(position: Int, item: CacheImage)
 
         fun restoreListPosition()
+
+        fun onLikeClick(position: Int, item: CacheImage)
     }
 }

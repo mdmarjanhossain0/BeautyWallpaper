@@ -7,5 +7,5 @@ import android.view.View
 import android.view.ViewGroup
 import com.appbytes.beautywallpaper.R
 
-class FavoriteDetailsFragment : Fragment() {
+class FavoriteDetailsFragment : Fragment(R.layout.fragment_favorite_details) {
 }

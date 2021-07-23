@@ -60,4 +60,7 @@
     <string name="email_not_found">Email not found</string>
     <string name="change_password">Change Password</string>
     <string name="no_record_found">No record found</string>
+    <string name="collections">Collections</string>
+    <string name="search">Search...</string>
+    <string name="filter">Filter</string>
 </resources>

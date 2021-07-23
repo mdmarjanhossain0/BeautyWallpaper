@@ -1,11 +1,9 @@
-package com.codingwithmitch.openapi.util
+package com.appbytes.beautywallpaper.util
 
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.appbytes.beautywallpaper.util.DataState
-import com.appbytes.beautywallpaper.util.StateEvent
-import com.appbytes.beautywallpaper.util.StateMessage
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -39,18 +37,24 @@ abstract class DataChannelManager<ViewState> {
         stateEvent: StateEvent,
         jobFunction: Flow<DataState<ViewState>?>
     ){
+        Log.d(TAG, "isStateEventActive " +isStateEventActive(stateEvent).toString())
+        Log.d(TAG, "messageStack Size " +messageStack.size)
         if(!isStateEventActive(stateEvent) && messageStack.size == 0){
             addStateEvent(stateEvent)
             jobFunction
                 .onEach{ dataState ->
                     withContext(Main){
+                        Log.d(TAG, "datastate " +dataState.toString())
                         dataState?.data?.let { data ->
+                            Log.d(TAG, "datastate handleNewData ")
                             handleNewData(data)
                         }
                         dataState?.stateMessage?.let { stateMessage ->
+                            Log.d(TAG, "datastate handleNewMessage______ " )
                             handleNewStateMessage(stateMessage)
                         }
                         dataState?.stateEvent?.let { stateEvent ->
+                            Log.d(TAG, "datastate handleNewEvent ")
                             removeStateEvent(stateEvent)
                         }
                     }
