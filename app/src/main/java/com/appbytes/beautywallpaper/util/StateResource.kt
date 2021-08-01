@@ -26,13 +26,29 @@ sealed class UIComponentType{
 
 sealed class MessageType{
 
-    class Success: MessageType()
+    class Success: MessageType() {
+        override fun toString(): String {
+            return javaClass.name
+        }
+    }
 
-    class Error: MessageType()
+    class Error: MessageType() {
+        override fun toString(): String {
+            return javaClass.name
+        }
+    }
 
-    class Info: MessageType()
+    class Info: MessageType() {
+        override fun toString(): String {
+            return javaClass.name
+        }
+    }
 
-    class None: MessageType()
+    class None: MessageType() {
+        override fun toString(): String {
+            return javaClass.name
+        }
+    }
 }
 
 

@@ -27,6 +27,16 @@ android {
 
     }
     buildTypes {
+
+        debug {
+//            applicationIdSuffix ".debug"
+            resValue "string", "authorities", "com.appbytes.beautywallpaper.debug.fileProvider"
+            manifestPlaceholders = [
+                    "APP_NAME": "BeautyWallpaper DEBUG"
+            ]
+        }
+
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -190,10 +200,22 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-service:2.3.1'
 
 
+    implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
+
+
+    // Like Button
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
 
+    // skeleton layout
+    implementation 'com.faltenreich:skeletonlayout:2.1.0'
 
-    implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
+
+    implementation 'com.facebook.fresco:fresco:2.0.0'
+    implementation "com.facebook.fresco:imagepipeline-okhttp3:2.0.0"
+
+
+    // Facebook Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 
 }
 kapt {

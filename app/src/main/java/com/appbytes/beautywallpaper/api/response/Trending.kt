@@ -1,4 +1,4 @@
-package com.appbytes.beautywallpaper.api.main.response
+package com.appbytes.beautywallpaper.api.response
 
 data class Trending (
     var id: String? = null,

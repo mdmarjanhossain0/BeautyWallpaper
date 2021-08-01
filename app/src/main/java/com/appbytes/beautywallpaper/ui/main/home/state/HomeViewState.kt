@@ -1,7 +1,6 @@
 package com.appbytes.beautywallpaper.ui.main.home.state
 
 import android.os.Parcelable
-import com.appbytes.beautywallpaper.api.main.response.Image
 import com.appbytes.beautywallpaper.models.CacheImage
 import kotlinx.android.parcel.Parcelize
 

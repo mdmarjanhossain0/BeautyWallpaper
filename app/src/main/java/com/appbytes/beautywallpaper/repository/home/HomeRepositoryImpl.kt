@@ -1,8 +1,8 @@
 package com.appbytes.beautywallpaper.repository.home
 
 import android.util.Log
-import com.appbytes.beautywallpaper.api.main.MainApiService
-import com.appbytes.beautywallpaper.api.main.response.Image
+import com.appbytes.beautywallpaper.api.MainApiService
+import com.appbytes.beautywallpaper.api.response.Image
 import com.appbytes.beautywallpaper.models.CacheImage
 import com.appbytes.beautywallpaper.persistance.ImageDao
 import com.appbytes.beautywallpaper.repository.NetworkBoundResource
@@ -20,8 +20,8 @@ import javax.inject.Inject
 class HomeRepositoryImpl
 @Inject
     constructor(
-            private val mainApiService: MainApiService,
-            private val cacheDao: ImageDao
+        private val mainApiService: MainApiService,
+        private val cacheDao: ImageDao
     )
     : HomeRepository {
 
@@ -49,17 +49,15 @@ class HomeRepositoryImpl
                 page_number = pageNumber
 
         ){
-            var current_page_number : Int = -1
             override suspend fun updateCache(networkObject: List<Image>) {
-//                current_page_number = page
+                Log.d(TAG, "update Cache " + networkObject.size)
                 val imageList = Converter.makeImage(networkObject)
                 withContext(IO) {
                     for(image in imageList){
                         try{
                             // Launch each insert as a separate job to be executed in parallel
                             launch {
-                                val insert = cacheDao.insert(image)
-//                                Log.d(TAG, insert.toString())
+                                cacheDao.insert(image)
                             }
                         }catch (e: Exception){
                             e.printStackTrace()
@@ -70,6 +68,15 @@ class HomeRepositoryImpl
 
             override fun handleCacheSuccess(resultObj: List<CacheImage>, page : Int): DataState<HomeViewState> {
 
+                var calculate_page = page
+                if(resultObj.size == 0) {
+                    calculate_page = page -1
+                }
+
+                if (calculate_page < 1) {
+                    calculate_page = 1
+                }
+
                 val imagesAll = cacheDao.getImagesAll()
                 Log.d(TAG, "All images size check " + imagesAll.size)
                 return DataState.data(
@@ -77,22 +84,11 @@ class HomeRepositoryImpl
                         data = HomeViewState(
                                 imageFields = HomeViewState.ImageFields(
                                         images = resultObj,
-                                        page_number = page
+                                        page_number = calculate_page
                                 )
                         ),
                         stateEvent = stateEvent
                 )
-
-                /*return DataState(
-                        stateEvent = stateEvent,
-                        stateMessage = null,
-                        data = HomeViewState(
-                                imageFields = HomeViewState.ImageFields(
-                                        images = resultObj,
-                                        page_number = page
-                                )
-                        )
-                )*/
             }
 
         }.result

@@ -1,6 +1,6 @@
-package com.appbytes.beautywallpaper.api.main
+package com.appbytes.beautywallpaper.api
 
-import com.appbytes.beautywallpaper.api.main.response.*
+import com.appbytes.beautywallpaper.api.response.*
 import com.google.gson.JsonElement
 import retrofit2.Call
 import retrofit2.http.GET

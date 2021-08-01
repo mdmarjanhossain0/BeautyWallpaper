@@ -4,6 +4,8 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 
@@ -27,8 +29,17 @@ data class CacheImage(
         @ColumnInfo(name = "promotedAt")
         var promotedAt : String? = null,
 
+        @ColumnInfo(name = "color")
+        var color : String? = null,
+
+        @ColumnInfo(name = "blurHash")
+        var blurHash : String? = null,
+
         @ColumnInfo(name = "datetime")
-        var dateTime : Long = System.currentTimeMillis(),
+        var dateTime : Long = 0,                        // System.currentTimeMillis()
+
+        @ColumnInfo(name = "lastedit")
+        var lastEdit : Long = System.currentTimeMillis(),
 
         @ColumnInfo(name = "width")
         var width : Int? = null,

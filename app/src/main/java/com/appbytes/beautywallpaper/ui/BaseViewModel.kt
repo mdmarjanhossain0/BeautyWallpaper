@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.Flow
 @ExperimentalCoroutinesApi
 abstract class BaseViewModel<ViewState> : ViewModel()
 {
-    val TAG = "BaseViewModel"
+    open val TAG = "BaseViewModel"
 
     private val _viewState: MutableLiveData<ViewState> = MutableLiveData()
 

@@ -1,6 +1,6 @@
 package com.appbytes.beautywallpaper.di
 
-import com.appbytes.beautywallpaper.api.main.MainApiService
+import com.appbytes.beautywallpaper.api.MainApiService
 import com.appbytes.beautywallpaper.persistance.CollectionsDao
 import com.appbytes.beautywallpaper.persistance.CollectionsImagesDao
 import com.appbytes.beautywallpaper.persistance.ImageDao
@@ -40,9 +40,9 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideCollectionsRepository(
-        mainApiService : MainApiService,
-        collectionsDao: CollectionsDao,
-        collectionsImagesDao: CollectionsImagesDao
+            mainApiService : MainApiService,
+            collectionsDao: CollectionsDao,
+            collectionsImagesDao: CollectionsImagesDao
     ): CollectionsRepository {
         return CollectionsRepositoryImpl(
                 mainApiService = mainApiService,

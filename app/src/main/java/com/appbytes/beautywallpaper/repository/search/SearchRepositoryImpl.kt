@@ -1,8 +1,8 @@
 package com.appbytes.beautywallpaper.repository.search
 
 import android.util.Log
-import com.appbytes.beautywallpaper.api.main.MainApiService
-import com.appbytes.beautywallpaper.api.main.response.Image
+import com.appbytes.beautywallpaper.api.MainApiService
+import com.appbytes.beautywallpaper.api.response.Image
 import com.appbytes.beautywallpaper.models.CacheImage
 import com.appbytes.beautywallpaper.models.CacheKey
 import com.appbytes.beautywallpaper.persistance.SearchDao
