@@ -13,6 +13,7 @@ import com.appbytes.beautywallpaper.util.GenericViewHolder
 import com.bumptech.glide.Glide
 import com.like.LikeButton
 import com.like.OnLikeListener
+import kotlinx.android.synthetic.main.item_loading.view.*
 import kotlinx.android.synthetic.main.item_test.view.*
 import java.util.ArrayList
 
@@ -28,16 +29,14 @@ class ImageAdapter
 
         const val IMAGE_ITEM = 1
         const val LOADING_ITEM = 2
+
+        const val LOADING = 1
+        const val RETRY =2
     }
 
-    private var imageList : List<CacheImage> = ArrayList()
-//    private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-//        this.context = parent.context
-
         when(viewType) {
-
             IMAGE_ITEM -> {
                 val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_test,parent,false)
                 return ImageViewHolder(itemView, interaction)
@@ -66,9 +65,7 @@ class ImageAdapter
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         when(holder) {
-
             is ImageViewHolder -> {
                 holder.bind(differ.currentList.get(position))
             }
@@ -89,7 +86,6 @@ class ImageAdapter
         override fun areContentsTheSame(oldItem: CacheImage, newItem: CacheImage): Boolean {
             return oldItem == newItem
         }
-
     }
 
     private val differ =
@@ -100,8 +96,7 @@ class ImageAdapter
 
     internal inner class ImageRecyclerChangeCallback(
         private val adapter: ImageAdapter
-    ) : ListUpdateCallback
-    {
+    ) : ListUpdateCallback {
 
         override fun onChanged(position: Int, count: Int, payload: Any?) {
             adapter.notifyItemRangeChanged(position, count, payload)
@@ -120,12 +115,8 @@ class ImageAdapter
         }
     }
 
-    fun submitList(imageList: List<CacheImage>?) {
-        /*if (imageList != null) {
-            this.imageList = imageList
-            notifyDataSetChanged()
-        }*/
-        val newList = imageList?.toMutableList()
+    fun submitList(imageList: List<CacheImage>) {
+        val newList = imageList.toMutableList()
         val commitCallback = Runnable {
             // if process died must restore list position
             // very annoying
@@ -135,6 +126,9 @@ class ImageAdapter
 
     }
 
+    fun changeBottom(bottomState : Int) {
+    }
+
     class ImageViewHolder
     constructor(
             itemView: View,
@@ -142,13 +136,13 @@ class ImageAdapter
     ) : RecyclerView.ViewHolder(itemView) {
         val imageView = itemView.ivTest
 
-
         fun bind(item: CacheImage) = with(itemView) {
             imageView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
-            cv_like.setOnClickListener {
+            cv_download.setOnClickListener{
+                interaction?.onDownloadClick(position = adapterPosition, item = item)
             }
 
             cv_like.setOnLikeListener(object : OnLikeListener {
@@ -165,7 +159,7 @@ class ImageAdapter
             })
 
             if(item.favorite == 0 ) {
-                cv_like.setBackgroundColor(Color.GREEN)
+                cv_like.setEnabled(true)
             }
 
             val url = item.thumb
@@ -173,6 +167,7 @@ class ImageAdapter
                     .load(url)
                     .error(R.drawable.ic_place_holder)
                     .into(imageView)
+
         }
     }
 
@@ -183,5 +178,7 @@ class ImageAdapter
         fun restoreListPosition()
 
         fun onLikeClick(position: Int, item: CacheImage)
+
+        fun onDownloadClick(position: Int, item: CacheImage)
     }
 }

@@ -1,6 +1,7 @@
 package com.appbytes.beautywallpaper.di
 
-import com.appbytes.beautywallpaper.api.main.MainApiService
+import com.appbytes.beautywallpaper.api.IOService
+import com.appbytes.beautywallpaper.api.MainApiService
 import com.appbytes.beautywallpaper.util.Constants
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -40,5 +41,13 @@ object AppModule {
         return builder
                 .build()
                 .create(MainApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideIOService(builder: Retrofit.Builder): IOService {
+        return builder
+                .build()
+                .create(IOService::class.java)
     }
 }

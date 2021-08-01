@@ -63,4 +63,17 @@
     <string name="collections">Collections</string>
     <string name="search">Search...</string>
     <string name="filter">Filter</string>
+    <string name="retry">Retry</string>
+    <string name="uh_oh">Uh oh :-(</string>
+    <string name="no_items_please_try_again">Something went wrong</string>
+    <string name="download_error">Download error :(</string>
+    <string name="download_error_retry">Please check your network and retry</string>
+    <string name="retry_act">RETRY</string>
+    <string name="saved">Saved :D</string>
+    <string name="tap_to_open_manage">Tap to manage your wallpapers</string>
+    <string name="downloading">Downloading…</string>
+    <string name="cancelled_download">Download has been cancelled</string>
+    <string name="completed">Completed</string>
+    <string name="downloading_in_background">Downloading in background</string>
+    <string name="no_permission">No permission to write file into external storage</string>
 </resources>

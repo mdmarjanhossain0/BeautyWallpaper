@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appbytes.beautywallpaper.R
-import com.appbytes.beautywallpaper.api.main.MainApiService
+import com.appbytes.beautywallpaper.api.MainApiService
 import com.appbytes.beautywallpaper.fragment.collections.CollectionsFragmentFactory
 import com.appbytes.beautywallpaper.fragment.favorite.FavoriteFragmentFactory
 import com.appbytes.beautywallpaper.fragment.home.HomeFragmentFactory

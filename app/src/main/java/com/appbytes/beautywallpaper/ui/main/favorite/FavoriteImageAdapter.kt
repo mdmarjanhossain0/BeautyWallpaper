@@ -148,9 +148,6 @@ constructor(
                 interaction?.onItemSelected(adapterPosition, item)
             }
 
-            cv_like.setOnClickListener {
-            }
-
             cv_like.setOnLikeListener(object : OnLikeListener {
                 override fun liked(likeButton: LikeButton?) {
                     item.favorite = 0
@@ -165,7 +162,7 @@ constructor(
             })
 
             if(item.favorite == 0 ) {
-                cv_like.setBackgroundColor(Color.GREEN)
+                cv_like.setEnabled(true)
             }
 
             val url = item.thumb

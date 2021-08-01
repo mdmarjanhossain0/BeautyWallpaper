@@ -1,7 +1,7 @@
 package com.appbytes.beautywallpaper.util
 
-import com.appbytes.beautywallpaper.api.main.response.Collections
-import com.appbytes.beautywallpaper.api.main.response.Image
+import com.appbytes.beautywallpaper.api.response.Collections
+import com.appbytes.beautywallpaper.api.response.Image
 import com.appbytes.beautywallpaper.models.CacheCollections
 import com.appbytes.beautywallpaper.models.CacheImage
 
@@ -15,6 +15,9 @@ class Converter {
                 images.add(
                         CacheImage(
                                 id = obj.id,
+                                color = obj.color,
+                                blurHash = obj.blurHash,
+                                dateTime = System.currentTimeMillis(),
                                 promotedAt = obj.promotedAt,
                                 width = obj.width,
                                 height = obj.height,
@@ -56,6 +59,9 @@ class Converter {
                         CacheImage(
                                 id = obj.id,
                                 collectionsid = collectionsId,
+                                color = obj.color,
+                                blurHash = obj.blurHash,
+                                dateTime = System.currentTimeMillis(),
                                 promotedAt = obj.promotedAt,
                                 width = obj.width,
                                 height = obj.height,
@@ -79,6 +85,8 @@ class Converter {
                                 id = obj.id,
                                 query = query,
                                 promotedAt = obj.promotedAt,
+                                blurHash = obj.blurHash,
+                                dateTime = System.currentTimeMillis(),
                                 width = obj.width,
                                 height = obj.height,
                                 description = obj.description,

@@ -30,7 +30,7 @@ constructor(
     val result: Flow<DataState<ViewState>> = flow {
 
         // ****** STEP 1: VIEW CACHE ******
-        emit(returnCache(markJobComplete = false, page = page_number + 1))
+//        emit(returnCache(markJobComplete = false, page = page_number + 1))
 
         // ****** STEP 2: MAKE NETWORK CALL, SAVE RESULT TO CACHE ******
         val apiResult = safeApiCall(dispatcher){apiCall.invoke()}

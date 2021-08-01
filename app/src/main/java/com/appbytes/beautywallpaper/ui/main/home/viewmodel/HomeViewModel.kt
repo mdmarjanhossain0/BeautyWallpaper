@@ -22,7 +22,7 @@ class HomeViewModel
     )
     : BaseViewModel<HomeViewState>() {
 
-
+    override val TAG = "HomeViewModel"
 
 
     override fun handleNewData(data: HomeViewState) {
@@ -35,7 +35,7 @@ class HomeViewModel
             val job = when(stateEvent) {
                 is HomeStateEvent.GetNewPhotos -> {
                     if(stateEvent.clearLayoutManagerState){
-                        clearLayoutManagerState()
+//                        clearLayoutManagerState()
                     }
                     Log.d(TAG, "inner event page number " + getPage())
                     Log.d(TAG, "finish inner event page " + getPage())

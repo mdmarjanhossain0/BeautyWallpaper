@@ -95,20 +95,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"
-                        android:button="@drawable/bg_checkbox"
-                        android:text="@null"
-
-
                         app:like_drawable="@drawable/thumb_on"
                         app:unlike_drawable="@drawable/thumb_off"
                         app:dots_primary_color="@color/colorAccent"
                         app:dots_secondary_color="@color/colorPrimary"
+                        app:circle_start_color="@color/colorPrimary"
                         app:circle_end_color="@color/colorAccent"
                         app:anim_scale_factor="2"
-
                         app:icon_type="heart"
-                        app:icon_size="11dp"
+                        app:icon_size="15dp"
+                        android:layout_margin="5dp"
                         />
 
                     <ImageView

@@ -14,7 +14,7 @@ class Constants {
         const val searchKey = "searchKey"
 
 
-        const val NETWORK_TIMEOUT = 15000L
+        const val NETWORK_TIMEOUT = 6000L
         const val CACHE_TIMEOUT = 2000L
         const val TESTING_NETWORK_DELAY = 0L // fake network delay for testing
         const val TESTING_CACHE_DELAY = 0L // fake cache delay for testing
@@ -26,7 +26,11 @@ class Constants {
         const val PERMISSIONS_REQUEST_READ_STORAGE: Int = 301
         const val CROP_IMAGE_INTENT_CODE: Int = 401
 
-        const val PER_PAGE = 11
+        const val PER_PAGE = 10
         const val PAGE = 1
+
+
+
+        const val DOWNLOAD_TIMEOUT_MS = 30_000L
     }
 }

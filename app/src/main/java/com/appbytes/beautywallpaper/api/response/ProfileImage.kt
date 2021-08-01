@@ -1,4 +1,4 @@
-package com.appbytes.beautywallpaper.api.main.response
+package com.appbytes.beautywallpaper.api.response
 
 import com.google.gson.annotations.SerializedName
 

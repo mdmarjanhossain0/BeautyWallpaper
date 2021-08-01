@@ -2,11 +2,7 @@ package com.appbytes.beautywallpaper.di
 
 import android.content.Context
 import androidx.room.Room
-import com.appbytes.beautywallpaper.persistance.WallpaperDatabase
-import com.appbytes.beautywallpaper.persistance.CollectionsDao
-import com.appbytes.beautywallpaper.persistance.CollectionsImagesDao
-import com.appbytes.beautywallpaper.persistance.ImageDao
-import com.appbytes.beautywallpaper.persistance.SearchDao
+import com.appbytes.beautywallpaper.persistance.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,5 +51,11 @@ object CacheModule {
     @Provides
     fun provideSearchDao(database: WallpaperDatabase): SearchDao {
         return database.searchDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideDownloadDao(database: WallpaperDatabase): DownloadItemDao {
+        return database.downloadDao()
     }
 }

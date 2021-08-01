@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.appbytes.beautywallpaper.R
-import com.appbytes.beautywallpaper.api.main.MainApiService
-import com.appbytes.beautywallpaper.api.main.response.Image
+import com.appbytes.beautywallpaper.api.MainApiService
+import com.appbytes.beautywallpaper.api.response.Image
 import com.appbytes.beautywallpaper.models.CacheImage
 import com.appbytes.beautywallpaper.ui.main.MainActivity
 import com.appbytes.beautywallpaper.ui.main.collections.adapter.CollectionsDetailsAdapter

@@ -1,9 +1,9 @@
 package com.appbytes.beautywallpaper.repository.collections
 
 import android.util.Log
-import com.appbytes.beautywallpaper.api.main.MainApiService
-import com.appbytes.beautywallpaper.api.main.response.Collections
-import com.appbytes.beautywallpaper.api.main.response.Image
+import com.appbytes.beautywallpaper.api.MainApiService
+import com.appbytes.beautywallpaper.api.response.Collections
+import com.appbytes.beautywallpaper.api.response.Image
 import com.appbytes.beautywallpaper.models.CacheCollections
 import com.appbytes.beautywallpaper.models.CacheImage
 import com.appbytes.beautywallpaper.persistance.CollectionsDao
@@ -23,9 +23,9 @@ import javax.inject.Inject
 class CollectionsRepositoryImpl
 @Inject
 constructor(
-    private val mainApiService : MainApiService,
-    private val collectionsDao: CollectionsDao,
-    private val cacheCollectionsImages: CollectionsImagesDao
+        private val mainApiService : MainApiService,
+        private val collectionsDao: CollectionsDao,
+        private val cacheCollectionsImages: CollectionsImagesDao
 ) : CollectionsRepository {
 
 

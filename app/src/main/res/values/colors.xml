@@ -41,4 +41,17 @@
     <color name="grey5">#5c5c5c</color>
 
     <color name="default_background_color">#EEEEEE</color>
+
+
+    //Shimmer Background
+    <color name="shimmer_background">#dddddd</color>
+
+
+    <color name="shimmerColor">#5BEC1919</color>
+    <color name="maskColor">#98BDDA</color>
+    <color name="rippleColor">#1D000000</color>
+    <color name="primaryTextColor">#161616</color>
+
+
+    <color name="colorGrey">#dddddd</color>
 </resources>

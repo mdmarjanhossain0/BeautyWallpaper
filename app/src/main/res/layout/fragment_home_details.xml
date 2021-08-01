@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,5 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
+
+    <com.like.LikeButton
+        android:id = "@+id/likeButtonHeart"
+        android:layout_gravity = "center"
+        android:layout_marginStart = "16dp"
+        android:layout_marginEnd = "15dp"
+        android:layout_marginBottom = "8dp"
+        android:layout_marginTop = "4dp"
+        android:layout_width = "140dp"
+        android:layout_height = "140dp"
+        app:icon_type = "heart"
+        app:circle_start_color = "#F1DD31"
+        app:dots_primary_color = "#0E77CC"
+        app:dots_secondary_color = "#FF1A4F"
+        app:circle_end_color = "#12A518"
+        app:icon_size = "40dp"
+        app:liked = "false"
+        app:anim_scale_factor = "2"
+        app:is_enabled = "true" />
 
 </FrameLayout>

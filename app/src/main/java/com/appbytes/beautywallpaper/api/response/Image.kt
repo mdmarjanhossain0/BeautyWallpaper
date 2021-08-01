@@ -1,4 +1,4 @@
-package com.appbytes.beautywallpaper.api.main.response
+package com.appbytes.beautywallpaper.api.response
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -102,6 +102,6 @@ data class Location (
     @SerializedName("city")
     @Expose var city : String,
     @SerializedName("country")
-    @Expose var country : String,
+    @Expose var country : String
 
 )

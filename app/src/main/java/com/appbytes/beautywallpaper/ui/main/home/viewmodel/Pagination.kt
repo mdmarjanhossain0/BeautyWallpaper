@@ -7,8 +7,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
 
-
-
 @FlowPreview
 @UseExperimental(ExperimentalCoroutinesApi::class)
 private fun HomeViewModel.incrementPageNumber(){
@@ -22,13 +20,10 @@ private fun HomeViewModel.incrementPageNumber(){
 @FlowPreview
 @UseExperimental(ExperimentalCoroutinesApi::class)
 fun HomeViewModel.nextPage(){
+    Log.d(TAG, "next page job Status " + (!isJobAlreadyActive(HomeStateEvent.GetNewPhotos())).toString())
     if(!isJobAlreadyActive(HomeStateEvent.GetNewPhotos())) {
         Log.d(TAG, "HomeViewModel: Attempting to load next page...")
-//        incrementPageNumber()
         Log.d(TAG, "next page set page number " + getCurrentViewStateOrNew().imageFields.page_number)
-        /*setStateEvent(HomeStateEvent.GetNewPhotos(
-                page_number = getCurrentViewStateOrNew().imageFields.page_number ?: 1
-        ))*/
         setStateEvent(HomeStateEvent.GetNewPhotos())
     }
 }
@@ -36,6 +31,7 @@ fun HomeViewModel.nextPage(){
 @FlowPreview
 @UseExperimental(ExperimentalCoroutinesApi::class)
 fun HomeViewModel.refreshFromCache(){
+    Log.d(TAG, "Home : Refresh From Cache job Status " + (!isJobAlreadyActive(HomeStateEvent.GetNewPhotos())).toString())
     if(!isJobAlreadyActive(HomeStateEvent.GetNewPhotos())){
         setStateEvent(HomeStateEvent.GetNewPhotos(clearLayoutManagerState = false))
     }
