@@ -1,11 +1,12 @@
-<p><strong>MVI Architecture</strong></p>
+<p><strong>MVI + MVVM Architecture</strong></p>
 <br>
+<p><b> Most Important Topics : </b> </p>
 <p>
-  1. Custom Navigation with custom backstack management using multiple  navigation graph( nav_version =2.3.0 manually customize)
-  2. Custom viewModel with data channel for job single job management
-  3. Sync bottom navigation with navigation drawer
-  4. Custom image download manager
-  5. Multiple layout and multiple theme
+  1. Custom Navigation with custom backstack management using multiple  navigation graph( nav_version =2.3.0 manually customize) <br>
+  2. Custom viewModel with data channel for job single job management <br>
+  3. Sync bottom navigation with navigation drawer <br>
+  4. Custom image download manager <br>
+  5. Multiple layout and multiple theme <br>
  </P
 </ol>
 <br>
