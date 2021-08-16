@@ -9,7 +9,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.*
 import com.appbytes.beautywallpaper.R
 import com.appbytes.beautywallpaper.models.CacheImage
+import com.appbytes.beautywallpaper.util.Constants.Companion.LIKE
+import com.appbytes.beautywallpaper.util.Constants.Companion.UNLIKE
 import com.appbytes.beautywallpaper.util.GenericViewHolder
+import com.appbytes.beautywallpaper.view.loadPhotoUrlWithThumbnail
+import com.appbytes.beautywallpaper.view.setAspectRatio
 import com.bumptech.glide.Glide
 import com.like.LikeButton
 import com.like.OnLikeListener
@@ -147,26 +151,31 @@ class ImageAdapter
 
             cv_like.setOnLikeListener(object : OnLikeListener {
                 override fun liked(likeButton: LikeButton?) {
-                    item.favorite = 0
+                    item.favorite = LIKE
                     interaction?.onLikeClick(adapterPosition, item)
                 }
 
                 override fun unLiked(likeButton: LikeButton?) {
-                    item.favorite = 1
+                    item.favorite = UNLIKE
                     interaction?.onLikeClick(adapterPosition, item)
                 }
 
             })
 
-            if(item.favorite == 0 ) {
-                cv_like.setEnabled(true)
+            if(item.favorite == LIKE ) {
+                cv_like.isEnabled = true
             }
 
-            val url = item.thumb
-            Glide.with(context)
+            val url = item.smallImageUrl
+            imageView.setAspectRatio(item.width, item.height)
+            imageView.loadPhotoUrlWithThumbnail(
+                url = url!!,
+                color = item.color,
+            )
+            /*Glide.with(context)
                     .load(url)
                     .error(R.drawable.ic_place_holder)
-                    .into(imageView)
+                    .into(imageView)*/
 
         }
     }

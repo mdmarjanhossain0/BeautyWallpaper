@@ -22,7 +22,7 @@ interface SearchDao {
     fun getKeys() : List<CacheKey>
 
 
-    @Query("SELECT * FROM image")
+    @Query("SELECT * FROM image ORDER BY datetime DESC")
     fun getImagesAll() : List<CacheImage>
 
 

@@ -16,6 +16,6 @@ interface CollectionsImagesDao {
     @Query("SELECT * FROM image")
     fun getCollections() : List<CacheImage>
 
-    @Query("SELECT * FROM image WHERE collectionsid  =:collectionsId ORDER BY datetime DESC LIMIT (:page * 10)")
+    @Query("SELECT * FROM image WHERE collectionsid  =:collectionsId LIMIT (:page * 10)")
     fun getCollectionsById(collectionsId : String?, page : Int) : List<CacheImage>
 }

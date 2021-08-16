@@ -3,6 +3,8 @@ package com.appbytes.beautywallpaper.ui.main.home
 import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +16,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,14 +26,15 @@ import com.appbytes.beautywallpaper.R
 import com.appbytes.beautywallpaper.models.CacheImage
 import com.appbytes.beautywallpaper.persistance.DownloadItemDao
 import com.appbytes.beautywallpaper.persistance.ImageDao
+import com.appbytes.beautywallpaper.ui.details.DetailsActivity
+import com.appbytes.beautywallpaper.ui.details.DetailsActivity.Companion.IMAGE_ID
+import com.appbytes.beautywallpaper.ui.details.DetailsActivity.Companion.IMAGE_URL
 import com.appbytes.beautywallpaper.ui.main.MainActivity
 import com.appbytes.beautywallpaper.ui.main.home.state.HOME_VIEW_STATE_BUNDLE_KEY
 import com.appbytes.beautywallpaper.ui.main.home.state.HomeViewState
 import com.appbytes.beautywallpaper.ui.main.home.viewmodel.*
+import com.appbytes.beautywallpaper.util.*
 import com.appbytes.beautywallpaper.util.ErrorHandling.Companion.isPaginationDone
-import com.appbytes.beautywallpaper.util.Response
-import com.appbytes.beautywallpaper.util.StateMessageCallback
-import com.appbytes.beautywallpaper.util.TopSpacingItemDecoration
 import com.appbytes.beautywallpaper.util.download.DownloadUtils
 import com.appbytes.beautywallpaper.util.download.PermissionUtils
 import com.appbytes.beautywallpaper.util.download.Toaster
@@ -40,10 +44,12 @@ import com.faltenreich.skeletonlayout.SkeletonLayout
 import com.faltenreich.skeletonlayout.applySkeleton
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.detail_no_item.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -61,6 +67,14 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
     private lateinit var skeleton : Skeleton
 
     private var isSizeZero : Boolean = true
+
+    val viewModel: HomeViewModel by viewModels()
+
+
+    @Inject
+    lateinit var sharePreference : SharedPreferences
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,8 +122,13 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
             val images = viewState.imageFields.images
             if(images?.size != 0 ) {
                 isSizeZero = false
-                no_details.visibility = View.GONE
-                recyclerAdapter.submitList(images!!)
+                no_details!!.visibility = View.GONE
+                if(skeleton.isSkeleton()){
+                    skeleton.showOriginal()
+                }
+                if(images != null) {
+                    recyclerAdapter.submitList(images!!)
+                }
             }
             else {
                 isSizeZero = true
@@ -146,7 +165,9 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
 
     override fun onResume() {
 //        skeleton.showSkeleton()
-        viewModel.refreshFromCache()
+//        viewModel.refreshFromCache()
+//        (activity as MainActivity).drawerToggle.syncState()
+        (activity as MainActivity).hamburgerArrow(true)
         super.onResume()
     }
 
@@ -156,6 +177,7 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
     }
 
 
+    @FlowPreview
     private fun saveLayoutManagerState(){
         test_recycler_view.layoutManager?.onSaveInstanceState()?.let { lmState ->
             viewModel.setLayoutManagerState(lmState)
@@ -164,7 +186,11 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
     }
 
     override fun onItemSelected(position: Int, item: CacheImage) {
-        findNavController().navigate(R.id.action_homeFragment_to_homeDetailsFragment)
+//        findNavController().navigate(R.id.action_homeFragment_to_homeDetailsFragment)
+        val intent = Intent(activity as MainActivity, DetailsActivity::class.java)
+        intent.putExtra(IMAGE_ID, item.id)
+        intent.putExtra(IMAGE_URL, item.regularImageUrl)
+        startActivity(intent)
     }
 
 
@@ -175,7 +201,6 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
     }
 
     override fun onLikeClick(position: Int, item: CacheImage) {
-        item.favorite = 0
         viewModel.setLike(item)
     }
 
@@ -186,14 +211,13 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
 
     private fun initRecyclerView(){
         test_recycler_view.apply {
-            val orientation = getResources().getConfiguration().orientation
-            if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-                layoutManager = GridLayoutManager(this@HomeFragment.context, 2)
-            }
-            else {
-                layoutManager = LinearLayoutManager(this@HomeFragment.context)
-            }
-            val topSpacingDecorator = TopSpacingItemDecoration(5)
+            val orientation = resources.configuration.orientation
+            layoutManager = customLayoutManager(
+                land_scape = orientation,
+                layout = getLayout(sharePreference, context),
+                context
+            )
+            val topSpacingDecorator = TopSpacingItemDecoration(0)
             removeItemDecoration(topSpacingDecorator) // does nothing if not applied already
             addItemDecoration(topSpacingDecorator)
 
@@ -212,6 +236,15 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
                     if (lastPosition == recyclerAdapter.itemCount.minus(1)) {
                         viewModel.nextPage()
                     }
+                }
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    /*if (dy > 0) {
+                        (activity as MainActivity).changeBottomNavigationstate(true)
+                    } else {
+                        (activity as MainActivity).changeBottomNavigationstate(false)
+
+                    }*/
                 }
             })
             adapter = recyclerAdapter
@@ -234,8 +267,10 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when(item.itemId){
+            R.id.homeAsUp -> {
+                (activity as MainActivity).onBackPressed()
+            }
             R.id.action_search -> {
                 (activity as MainActivity).navigateSearchHistoryFragment()
                 return true
@@ -259,8 +294,11 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
 
         // ENTER ON COMPUTER KEYBOARD OR ARROW ON VIRTUAL KEYBOARD
         val searchPlate = searchView.findViewById(R.id.search_src_text) as EditText
-        searchPlate.setOnEditorActionListener { v, actionId, event ->
+        /*searchPlate.setOnEditorActionListener { v, actionId, event ->
             true
+        }*/
+        searchPlate.setOnClickListener {
+            (activity as MainActivity).navigateSearchHistoryFragment()
         }
 
         // SEARCH BUTTON CLICKED (in toolbar)

@@ -50,14 +50,20 @@ data class CacheImage(
         @ColumnInfo(name = "description")
         var description : String? = null,
 
+        @ColumnInfo(name = "thumb")
+        var thumb : String? = null,
+
         @ColumnInfo(name = "small")
         var smallImageUrl : String? = null,
 
         @ColumnInfo(name = "regular")
         var regularImageUrl : String? = null,
 
-        @ColumnInfo(name = "thumb")
-        var thumb : String? = null,
+        @ColumnInfo(name = "full")
+        var fullImageUrl : String? = null,
+
+        @ColumnInfo(name = "raw")
+        var rawImageUrl : String? = null,
 
         @ColumnInfo(name = "links")
         var links : String? = null,

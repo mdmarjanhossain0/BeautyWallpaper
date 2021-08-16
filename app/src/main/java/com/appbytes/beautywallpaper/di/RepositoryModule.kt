@@ -1,12 +1,11 @@
 package com.appbytes.beautywallpaper.di
 
 import com.appbytes.beautywallpaper.api.MainApiService
-import com.appbytes.beautywallpaper.persistance.CollectionsDao
-import com.appbytes.beautywallpaper.persistance.CollectionsImagesDao
-import com.appbytes.beautywallpaper.persistance.ImageDao
-import com.appbytes.beautywallpaper.persistance.SearchDao
+import com.appbytes.beautywallpaper.persistance.*
 import com.appbytes.beautywallpaper.repository.collections.CollectionsRepository
 import com.appbytes.beautywallpaper.repository.collections.CollectionsRepositoryImpl
+import com.appbytes.beautywallpaper.repository.details.DetailsRepository
+import com.appbytes.beautywallpaper.repository.download.DownloadRepository
 import com.appbytes.beautywallpaper.repository.favorite.FavoriteRepository
 import com.appbytes.beautywallpaper.repository.favorite.FavoriteRepositoryImpl
 import com.appbytes.beautywallpaper.repository.home.HomeRepository
@@ -71,6 +70,30 @@ object RepositoryModule {
         return SearchRepositoryImpl(
                 mainApiService = mainApiService,
                 searchDao = searchDao
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideDownloadRepository(
+        imageDao: ImageDao,
+        downloadItemDao: DownloadItemDao
+    ): DownloadRepository {
+        return DownloadRepository(
+            imageDao = imageDao,
+            downloadItemDao = downloadItemDao
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideDetailsRepository(
+        imageDao: ImageDao,
+        downloadItemDao: DownloadItemDao
+    ): DetailsRepository {
+        return DetailsRepository(
+            imageDao = imageDao,
+            downloadItemDao = downloadItemDao
         )
     }
 }

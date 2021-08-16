@@ -1,0 +1,63 @@
+<PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="General">
+
+        <ListPreference
+            android:key="@string/key_theme"
+            app:title="@string/theme"
+            android:entries="@array/theme_options"
+            android:entryValues="@array/theme_values"
+            android:defaultValue="@string/default_theme"
+            app:useSimpleSummaryProvider="true"
+            />
+        <ListPreference
+            android:key="@string/key_layout"
+            android:title="@string/layout"
+            android:entries="@array/layout_options"
+            android:entryValues="@array/layout_values"
+            android:defaultValue="@string/default_layout"
+            app:useSimpleSummaryProvider="true"
+            />
+        <ListPreference
+            android:key="@string/key_download_path"
+            android:title="@string/donload_path"
+            />
+        <CheckBoxPreference
+            android:key="@string/key_clear_cache"
+            android:title="@string/clear_cache"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Quality"
+        >
+
+        <ListPreference
+            android:key="@string/key_thumb"
+            android:title="@string/thumb_quality"
+            app:entries="@array/quality_options"
+            android:entryValues="@array/quality_values"
+            android:defaultValue="@string/default_thumb"
+            app:useSimpleSummaryProvider="true"
+            />
+        <ListPreference
+            android:key="@string/key_wallpaper"
+            android:title="@string/wallpaper_quality"
+            app:entries="@array/quality_options"
+            android:entryValues="@array/quality_values"
+            android:defaultValue="@string/default_wallpaper"
+            app:useSimpleSummaryProvider="true"
+            />
+        <ListPreference
+            android:key="@string/key_download"
+            android:title="@string/download_quality"
+            app:entries="@array/quality_options"
+            android:entryValues="@array/quality_values"
+            android:defaultValue="@string/default_download"
+            app:useSimpleSummaryProvider="true"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

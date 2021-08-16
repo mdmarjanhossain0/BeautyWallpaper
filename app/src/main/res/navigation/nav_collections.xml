@@ -6,7 +6,7 @@
     app:startDestination="@id/collectionsFragment">
     <fragment
         android:id="@+id/collectionsFragment"
-        android:name="com.appbytes.beautywallpaper.ui.main.collections.CollectionsFragment"
+        android:name="com.appbytes.beautywallpaper.ui.main.collections.list.CollectionsFragment"
         android:label="CollectionsFragment" >
         <action
             android:id="@+id/action_collectionsFragment_to_collectionsDetailsFragment"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/collectionsDetailsFragment"
-        android:name="com.appbytes.beautywallpaper.ui.main.collections.CollectionsDetailsFragment"
+        android:name="com.appbytes.beautywallpaper.ui.main.collections.detailslist.CollectionsDetailsFragment"
         android:label="CollectionsDetailsFragment" >
         <argument
             android:name="collectionsId"

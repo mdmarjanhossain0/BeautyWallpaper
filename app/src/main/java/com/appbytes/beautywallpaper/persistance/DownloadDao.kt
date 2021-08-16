@@ -16,6 +16,9 @@ abstract class DownloadItemDao {
     @Query("SELECT * FROM download_item WHERE id=:id")
     abstract fun getById(id: String): DownloadItem
 
+    @Query("SELECT * FROM download_item WHERE id=:id")
+    abstract fun getLiveById(id: String): LiveData<DownloadItem>
+
     @Query("SELECT COUNT(id) FROM download_item WHERE id=:id")
     abstract fun getCountById(id: String): Int
 

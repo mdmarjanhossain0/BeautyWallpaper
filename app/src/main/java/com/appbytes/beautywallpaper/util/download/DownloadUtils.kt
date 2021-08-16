@@ -27,12 +27,6 @@ class DownloadUtils {
 
     companion object {
 
-        /*@Inject
-        lateinit var downloadDao : DownloadItemDao*/
-
-        /**
-         * Get file to save given a [expectedName].
-         */
         fun getFileToSave(expectedName: String): File? {
             val galleryPath = FileUtils.downloadOutputDir ?: return null
             val folder = File(galleryPath)
@@ -42,9 +36,6 @@ class DownloadUtils {
             return File(folder.toString() + File.separator + expectedName)
         }
 
-        /**
-         * Cancel the download of specified [image].
-         */
         fun cancelDownload(context: Context, image: CacheImage) {
             val intent = Intent(BaseApplication.instance, DownloadService::class.java)
             intent.putExtra(Params.CANCELED_KEY, true)
@@ -52,10 +43,6 @@ class DownloadUtils {
             context.startService(intent)
         }
 
-        /**
-         * Start downloading the [image].
-         * @param context used to check network status
-         */
         fun download(context: Context, image: CacheImage) {
             var previewFile: File? = null
             previewFile = image.regularImageUrl?.let {

@@ -1,8 +1,6 @@
 package com.appbytes.beautywallpaper.repository.search
 
-import com.appbytes.beautywallpaper.models.CacheImage
 import com.appbytes.beautywallpaper.models.CacheKey
-import com.appbytes.beautywallpaper.ui.main.home.state.HomeViewState
 import com.appbytes.beautywallpaper.ui.main.search.state.SearchViewState
 import com.appbytes.beautywallpaper.util.Constants
 import com.appbytes.beautywallpaper.util.DataState

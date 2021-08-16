@@ -28,8 +28,6 @@ constructor(
         const val LOADING_ITEM = 2
     }
 
-    private var collectionsList : List<CacheCollections> = ArrayList()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         when(viewType) {
@@ -136,7 +134,7 @@ constructor(
             itemView: View,
             private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(itemView) {
-        val imageView = itemView.ivTest
+        val imageView = itemView.ivTestCol
 
 
         fun bind(item: CacheCollections) = with(itemView) {

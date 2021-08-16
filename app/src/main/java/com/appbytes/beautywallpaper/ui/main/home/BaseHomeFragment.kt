@@ -24,20 +24,20 @@ abstract class BaseHomeFragment constructor(
 
     private val TAG: String = "BaseHomeFragment"
 
-    val viewModel: HomeViewModel by viewModels()
+
 
     lateinit var uiCommunicationListener: UICommunicationListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBarWithNavController(R.id.homeFragment, activity as AppCompatActivity)
-        setupChannel()
+//        setupChannel()
     }
 
 
-    private fun setupChannel() = viewModel.setupChannel()
+//    private fun setupChannel() = viewModel.setupChannel()
 
-    fun setupActionBarWithNavController(fragmentId: Int, activity: AppCompatActivity){
+    private fun setupActionBarWithNavController(fragmentId: Int, activity: AppCompatActivity){
         val appBarConfiguration = AppBarConfiguration(setOf(fragmentId))
         NavigationUI.setupActionBarWithNavController(
             activity,

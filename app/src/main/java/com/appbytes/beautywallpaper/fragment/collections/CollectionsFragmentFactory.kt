@@ -1,8 +1,8 @@
 package com.appbytes.beautywallpaper.fragment.collections
 
 import androidx.fragment.app.FragmentFactory
-import com.appbytes.beautywallpaper.ui.main.collections.CollectionsDetailsFragment
-import com.appbytes.beautywallpaper.ui.main.collections.CollectionsFragment
+import com.appbytes.beautywallpaper.ui.main.collections.detailslist.CollectionsDetailsFragment
+import com.appbytes.beautywallpaper.ui.main.collections.list.CollectionsFragment
 import javax.inject.Inject
 import javax.inject.Singleton
 

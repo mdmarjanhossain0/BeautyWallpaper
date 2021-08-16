@@ -9,7 +9,13 @@ import com.appbytes.beautywallpaper.models.CacheImage
 import com.appbytes.beautywallpaper.models.CacheKey
 import com.appbytes.beautywallpaper.models.DownloadItem
 
-@Database(entities = [CacheImage::class, CacheCollections::class, CacheKey::class, DownloadItem::class], version = 13)
+@Database(
+        entities = [
+            CacheImage::class,
+            CacheCollections::class,
+            CacheKey::class,
+            DownloadItem::class],
+        version = 15)
 abstract class WallpaperDatabase : RoomDatabase (){
 
 

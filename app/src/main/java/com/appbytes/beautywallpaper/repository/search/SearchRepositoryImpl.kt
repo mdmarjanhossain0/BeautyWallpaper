@@ -3,6 +3,7 @@ package com.appbytes.beautywallpaper.repository.search
 import android.util.Log
 import com.appbytes.beautywallpaper.api.MainApiService
 import com.appbytes.beautywallpaper.api.response.Image
+import com.appbytes.beautywallpaper.api.response.SearchResponse
 import com.appbytes.beautywallpaper.models.CacheImage
 import com.appbytes.beautywallpaper.models.CacheKey
 import com.appbytes.beautywallpaper.persistance.SearchDao
@@ -16,10 +17,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
 class SearchRepositoryImpl
-//@Inject
+@Inject
 constructor(
         private val mainApiService: MainApiService,
         private val searchDao: SearchDao
@@ -32,7 +34,7 @@ constructor(
             per_page: Int,
             client_id: String,
             stateEvent: StateEvent): Flow<DataState<SearchViewState>> {
-        return object : NetworkBoundResource<List<Image>, List<CacheImage>, SearchViewState>(
+        return object : NetworkBoundResource<SearchResponse, List<CacheImage>, SearchViewState>(
                 dispatcher = IO,
                 stateEvent = stateEvent,
                 apiCall = {
@@ -49,8 +51,8 @@ constructor(
                 },
                 page_number = pageNumber
         ) {
-            override suspend fun updateCache(networkObject: List<Image>) {
-                val imageList = Converter.makeImageFromSearch(networkObject, query)
+            override suspend fun updateCache(networkObject: SearchResponse) {
+                val imageList = Converter.makeImageFromSearchResponse(networkObject, query)
                 setSearchKey(query)
                 withContext(IO) {
                     for(image in imageList){

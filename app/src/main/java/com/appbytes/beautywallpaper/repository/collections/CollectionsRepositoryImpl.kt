@@ -9,7 +9,8 @@ import com.appbytes.beautywallpaper.models.CacheImage
 import com.appbytes.beautywallpaper.persistance.CollectionsDao
 import com.appbytes.beautywallpaper.persistance.CollectionsImagesDao
 import com.appbytes.beautywallpaper.repository.NetworkBoundResource
-import com.appbytes.beautywallpaper.ui.main.collections.state.CollectionsViewState
+import com.appbytes.beautywallpaper.ui.main.collections.detailslist.state.CollectionsDetailsState
+import com.appbytes.beautywallpaper.ui.main.collections.list.state.CollectionsState
 import com.appbytes.beautywallpaper.util.Converter
 import com.appbytes.beautywallpaper.util.DataState
 import com.appbytes.beautywallpaper.util.StateEvent
@@ -35,8 +36,8 @@ constructor(
             per_page: Int,
             client_id: String,
             stateEvent: StateEvent)
-            : Flow<DataState<CollectionsViewState>> {
-        return object : NetworkBoundResource<List<Collections>, List<CacheCollections>, CollectionsViewState>(
+            : Flow<DataState<CollectionsState>> {
+        return object : NetworkBoundResource<List<Collections>, List<CacheCollections>, CollectionsState>(
                 dispatcher = Dispatchers.IO,
                 stateEvent = stateEvent,
                 apiCall = {
@@ -71,12 +72,12 @@ constructor(
                 }
             }
 
-            override fun handleCacheSuccess(resultObj: List<CacheCollections>, page : Int): DataState<CollectionsViewState> {
+            override fun handleCacheSuccess(resultObj: List<CacheCollections>, page : Int): DataState<CollectionsState> {
                 return DataState(
                         stateEvent = stateEvent,
                         stateMessage = null,
-                        data = CollectionsViewState(
-                                collectionsFields = CollectionsViewState.CollectionsFields(
+                        data = CollectionsState(
+                                collectionsFields = CollectionsState.CollectionsFields(
                                         collections = resultObj,
                                         page_number = page
                                 )
@@ -117,8 +118,8 @@ constructor(
             per_page: Int,
             client_id: String,
             stateEvent: StateEvent)
-            : Flow<DataState<CollectionsViewState>> {
-        return object : NetworkBoundResource<List<Image>, List<CacheImage>, CollectionsViewState>(
+            : Flow<DataState<CollectionsDetailsState>> {
+        return object : NetworkBoundResource<List<Image>, List<CacheImage>, CollectionsDetailsState>(
                 dispatcher = Dispatchers.IO,
                 stateEvent = stateEvent,
                 apiCall = {
@@ -154,12 +155,12 @@ constructor(
                 }
             }
 
-            override fun handleCacheSuccess(resultObj: List<CacheImage>, page : Int): DataState<CollectionsViewState> {
+            override fun handleCacheSuccess(resultObj: List<CacheImage>, page : Int): DataState<CollectionsDetailsState> {
                 return DataState(
                         stateEvent = stateEvent,
                         stateMessage = null,
-                        data = CollectionsViewState(
-                                collectionsDetailsFields = CollectionsViewState.CollectionsDetailsFields(
+                        data = CollectionsDetailsState(
+                                collectionsDetailsFields = CollectionsDetailsState.CollectionsDetailsFields(
                                         collectionsImages = resultObj,
                                         page_number = page
                                 )

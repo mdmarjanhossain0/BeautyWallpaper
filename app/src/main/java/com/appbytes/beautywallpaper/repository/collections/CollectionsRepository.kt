@@ -1,6 +1,7 @@
 package com.appbytes.beautywallpaper.repository.collections
 
-import com.appbytes.beautywallpaper.ui.main.collections.state.CollectionsViewState
+import com.appbytes.beautywallpaper.ui.main.collections.detailslist.state.CollectionsDetailsState
+import com.appbytes.beautywallpaper.ui.main.collections.list.state.CollectionsState
 import com.appbytes.beautywallpaper.util.Constants
 import com.appbytes.beautywallpaper.util.DataState
 import com.appbytes.beautywallpaper.util.StateEvent
@@ -13,7 +14,7 @@ interface CollectionsRepository {
             per_page: Int = 11,
             client_id: String = Constants.unsplash_access_key,
             stateEvent: StateEvent
-    ) : Flow<DataState<CollectionsViewState>>
+    ) : Flow<DataState<CollectionsState>>
 
 
     fun getCollectionsImages (
@@ -22,5 +23,5 @@ interface CollectionsRepository {
             per_page: Int = 11,
             client_id: String = Constants.unsplash_access_key,
             stateEvent: StateEvent
-    ) : Flow<DataState<CollectionsViewState>>
+    ) : Flow<DataState<CollectionsDetailsState>>
 }

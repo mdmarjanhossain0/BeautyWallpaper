@@ -56,14 +56,8 @@ class FavoriteFragment : BaseFavoriteFragment(R.layout.fragment_home), FavoriteI
         }
     }
 
-    /**
-     * !IMPORTANT!
-     * Must save ViewState b/c in event of process death the LiveData in ViewModel will be lost
-     */
     override fun onSaveInstanceState(outState: Bundle) {
         val viewState = viewModel.viewState.value
-        //clear the list. Don't want to save a large list to bundle.
-//        viewState?.imageFields?.images = ArrayList()
         outState.putParcelable(
             FAVORITE_VIEW_STATE_BUNDLE_KEY,
             viewState
@@ -78,7 +72,6 @@ class FavoriteFragment : BaseFavoriteFragment(R.layout.fragment_home), FavoriteI
         Log.d(TAG, "ViewModel " + viewModel.toString())
         initRecyclerView()
         subscribeObservers()
-//        callApi()
     }
 
     private fun subscribeObservers() {
@@ -110,6 +103,8 @@ class FavoriteFragment : BaseFavoriteFragment(R.layout.fragment_home), FavoriteI
 
     override fun onResume() {
         viewModel.getFromCache()
+//        (activity as MainActivity).drawerToggle.syncState()
+        (activity as MainActivity).hamburgerArrow(true)
         super.onResume()
     }
 

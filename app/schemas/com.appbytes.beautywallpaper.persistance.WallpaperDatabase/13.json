@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 13,
-    "identityHash": "bb472963986f299f0f8e586cc6ac7eeb",
+    "identityHash": "01e9c271b7698a2f4552608edf11a7c4",
     "entities": [
       {
         "tableName": "image",
@@ -184,12 +184,18 @@
       },
       {
         "tableName": "searchkey",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` TEXT NOT NULL, PRIMARY KEY(`key`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` TEXT NOT NULL, `datetime` INTEGER NOT NULL, PRIMARY KEY(`key`))",
         "fields": [
           {
             "fieldPath": "key",
             "columnName": "key",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateTime",
+            "columnName": "datetime",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -286,7 +292,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bb472963986f299f0f8e586cc6ac7eeb')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '01e9c271b7698a2f4552608edf11a7c4')"
     ]
   }
 }

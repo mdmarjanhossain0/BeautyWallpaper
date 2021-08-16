@@ -1,5 +1,8 @@
 package com.appbytes.beautywallpaper.di
 
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.preference.PreferenceManager
 import com.appbytes.beautywallpaper.api.IOService
 import com.appbytes.beautywallpaper.api.MainApiService
 import com.appbytes.beautywallpaper.util.Constants
@@ -9,6 +12,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -49,5 +53,12 @@ object AppModule {
         return builder
                 .build()
                 .create(IOService::class.java)
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideSharePreference(@ApplicationContext context: Context) : SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(context)
     }
 }

@@ -17,6 +17,15 @@ interface MainApiService {
         @Query("client_id") client_id: String?
     ): List<Image>
 
+
+  @GET("/search/photos")
+  suspend fun getSearch(
+          @Query("query") query: String?,
+          @Query("page") page: Int?,
+          @Query("per_page") perPage: Int?,
+          @Query("client_id") client_id: String?
+  ) : SearchResponse
+
     @GET("photos/random")
     suspend fun getRandom(
             @Query("count") count: String?,
@@ -69,13 +78,7 @@ interface MainApiService {
     @GET("collections")
     suspend fun getTrending(@Query("client_id") client_id: String?): Call<JsonElement?>?
 
-    @GET("search/photos/")
-    fun getSearch(
-        @Query("query") query: String?,
-        @Query("page") page: Int?,
-        @Query("per_page") perPage: Int?,
-        @Query("client_id") client_id: String?
-    ): List<Image>
+
 
     @GET("collections/{id}")
     suspend fun getExploreCat(

@@ -20,60 +20,18 @@ class FavoriteImageAdapter
 constructor(
         private val interaction: Interaction? = null
 )
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    : RecyclerView.Adapter<FavoriteImageAdapter.FavoriteImageViewHolder>() {
 
-    val TAG = "ImageAdapter"
+    val TAG = "FavoriteImageAdapter"
 
-    companion object {
-
-        const val IMAGE_ITEM = 1
-        const val LOADING_ITEM = 2
-    }
-
-    private var imageList : List<CacheImage> = ArrayList()
-//    private lateinit var context: Context
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-//        this.context = parent.context
-
-        when(viewType) {
-
-            IMAGE_ITEM -> {
-                val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_test,parent,false)
-                return ImageViewHolder(itemView, interaction)
-            }
-
-            LOADING_ITEM -> {
-                Log.d(TAG, "onCreateViewHolder: No more results...")
-                return GenericViewHolder(
-                        LayoutInflater.from(parent.context).inflate(
-                                R.layout.item_loading,
-                                parent,
-                                false
-                        )
-                )
-            }
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteImageViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_test,parent,false)
-        return ImageViewHolder(itemView, interaction)
+        return FavoriteImageViewHolder(itemView, interaction)
     }
 
-    override fun getItemViewType(position: Int): Int {
-        if(differ.currentList.size == (position + 1)){
-            return LOADING_ITEM
-        }
-        return IMAGE_ITEM
-    }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
-        when(holder) {
-
-            is ImageViewHolder -> {
-                holder.bind(differ.currentList.get(position))
-            }
-        }
-
+    override fun onBindViewHolder(holder: FavoriteImageViewHolder, position: Int) {
+        holder.bind(differ.currentList.get(position))
     }
 
     override fun getItemCount(): Int {
@@ -121,10 +79,6 @@ constructor(
     }
 
     fun submitList(imageList: List<CacheImage>?) {
-        /*if (imageList != null) {
-            this.imageList = imageList
-            notifyDataSetChanged()
-        }*/
         val newList = imageList?.toMutableList()
         val commitCallback = Runnable {
             // if process died must restore list position
@@ -135,7 +89,7 @@ constructor(
 
     }
 
-    class ImageViewHolder
+    class FavoriteImageViewHolder
     constructor(
             itemView: View,
             private val interaction: Interaction?

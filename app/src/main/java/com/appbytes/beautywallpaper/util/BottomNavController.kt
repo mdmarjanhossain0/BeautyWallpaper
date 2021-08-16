@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.appbytes.beautywallpaper.R
 import com.appbytes.beautywallpaper.fragment.collections.CollectionsNavHostFragment
+import com.appbytes.beautywallpaper.fragment.download.DownloadNavHostFragment
 import com.appbytes.beautywallpaper.fragment.favorite.FavoriteNavHostFragment
 import com.appbytes.beautywallpaper.fragment.home.HomeNavHostFragment
 import com.appbytes.beautywallpaper.fragment.search.SearchNavHostFragment
@@ -96,9 +97,17 @@ class BottomNavController(
             R.id.menu_nav_favorite -> {
                 FavoriteNavHostFragment.create(R.navigation.nav_favorite)
             }
+            1 -> {
+                SearchNavHostFragment.create(R.navigation.nav_search)
+            }
+
+            R.id.menu_download -> {
+                DownloadNavHostFragment.create(R.navigation.nav_download)
+            }
 
             else -> {
-                SearchNavHostFragment.create(R.navigation.nav_search)
+//                SearchNavHostFragment.create(R.navigation.nav_search)
+                HomeNavHostFragment.create(R.navigation.nav_home)
             }
         }
     }

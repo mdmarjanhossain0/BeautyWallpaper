@@ -31,7 +31,7 @@ open class DownloadItem() {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    lateinit var id: String
+    var id: String = ""
 
     @ColumnInfo(name = "progress")
     var progress: Int = 0

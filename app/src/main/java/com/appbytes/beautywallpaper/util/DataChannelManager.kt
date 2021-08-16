@@ -60,6 +60,7 @@ abstract class DataChannelManager<ViewState> {
                     }
                 }
                 .launchIn(getChannelScope())
+            Log.d(TAG, "test Channel Scope " + getChannelScope().toString())
         }
     }
 

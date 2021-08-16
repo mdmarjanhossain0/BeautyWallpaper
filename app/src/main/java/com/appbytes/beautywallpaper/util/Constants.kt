@@ -32,5 +32,13 @@ class Constants {
 
 
         const val DOWNLOAD_TIMEOUT_MS = 30_000L
+
+        const val LIKE = 0
+        const val UNLIKE = 1
+
+
+        // layout
+        const val GRID = "grid"
+        const val MINIMAL = "minimal"
     }
 }

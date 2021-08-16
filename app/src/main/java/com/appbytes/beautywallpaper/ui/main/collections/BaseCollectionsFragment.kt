@@ -13,7 +13,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.appbytes.beautywallpaper.R
 import com.appbytes.beautywallpaper.ui.UICommunicationListener
-import com.appbytes.beautywallpaper.ui.main.collections.viewmodel.CollectionsViewModel
 
 abstract class BaseCollectionsFragment constructor(
         @LayoutRes
@@ -22,18 +21,14 @@ abstract class BaseCollectionsFragment constructor(
 
     private val TAG = "BaseCollectionsFragment"
 
-    val viewModel: CollectionsViewModel by viewModels()
 
     lateinit var uiCommunicationListener: UICommunicationListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupActionBarWithNavController(R.id.collectionsFragment, activity as AppCompatActivity)
-        setupChannel()
+
     }
-
-
-    private fun setupChannel() = viewModel.setupChannel()
 
     fun setupActionBarWithNavController(fragmentId: Int, activity: AppCompatActivity){
         val appBarConfiguration = AppBarConfiguration(setOf(fragmentId))
