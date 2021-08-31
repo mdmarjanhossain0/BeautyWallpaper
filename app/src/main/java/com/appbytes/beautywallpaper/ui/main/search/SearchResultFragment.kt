@@ -60,14 +60,9 @@ class SearchResultFragment : BaseSearchFragment(R.layout.fragment_search_result)
         }
     }
 
-    /**
-     * !IMPORTANT!
-     * Must save ViewState b/c in event of process death the LiveData in ViewModel will be lost
-     */
+
     override fun onSaveInstanceState(outState: Bundle) {
         val viewState = viewModel.viewState.value
-        //clear the list. Don't want to save a large list to bundle.
-//        viewState?.imageFields?.images = ArrayList()
         outState.putParcelable(
                 SEARCH_RESULT_VIEW_STATE_BUNDLE_KEY,
                 viewState
@@ -82,7 +77,6 @@ class SearchResultFragment : BaseSearchFragment(R.layout.fragment_search_result)
         Log.d(TAG, "ViewModel " + viewModel.toString())
         initSearchResultRecyclerView()
         subscribeObservers()
-//        callApi()
     }
 
     private fun subscribeObservers() {
@@ -143,11 +137,7 @@ class SearchResultFragment : BaseSearchFragment(R.layout.fragment_search_result)
 
 
     private fun initSearchResultRecyclerView(){
-
         search_result_recycler_view.apply {
-
-
-
             val orientation = getResources().getConfiguration().orientation
             if(orientation == Configuration.ORIENTATION_LANDSCAPE){
                 layoutManager = GridLayoutManager(this@SearchResultFragment.context, 2)
@@ -171,7 +161,7 @@ class SearchResultFragment : BaseSearchFragment(R.layout.fragment_search_result)
                     val lastPosition = layoutManager.findLastVisibleItemPosition()
                     if (lastPosition == recyclerAdapter.itemCount.minus(1)) {
                         Log.d(TAG, "SearchViewState: attempting to load next page...")
-                        viewModel.nextPage()
+                        viewModel.nextPage(args.searchKey)
                     }
                 }
             })

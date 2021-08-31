@@ -60,6 +60,7 @@ constructor(
 
     override fun getItemViewType(position: Int): Int {
         if(differ.currentList.size == (position + 1)){
+            interaction?.nextPage()
             return LOADING_ITEM
         }
         return COLLECTIONS_ITEM
@@ -159,5 +160,7 @@ constructor(
         fun onItemSelected(position: Int, item: CacheCollections)
 
         fun restoreListPosition()
+
+        fun nextPage()
     }
 }

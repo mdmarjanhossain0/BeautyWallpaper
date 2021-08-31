@@ -19,7 +19,7 @@ private fun SearchViewModel.incrementPageNumber(){
 
 @FlowPreview
 @UseExperimental(ExperimentalCoroutinesApi::class)
-fun SearchViewModel.nextPage(){
+fun SearchViewModel.nextPage(query : String){
     if(!isJobAlreadyActive(SearchStateEvent.GetSearchPhotos(query = ""))) {
         Log.d(TAG, "SearchViewModel: Attempting to load next page...")
 //        incrementPageNumber()
@@ -28,7 +28,7 @@ fun SearchViewModel.nextPage(){
                 page_number = getCurrentViewStateOrNew().imageFields.page_number ?: 1
         ))*/
         setStateEvent(SearchStateEvent.GetSearchPhotos(
-                query = "",
+                query = query,
                 clearLayoutManagerState = false))
     }
 }

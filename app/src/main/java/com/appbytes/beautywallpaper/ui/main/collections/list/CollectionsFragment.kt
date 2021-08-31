@@ -30,6 +30,8 @@ import com.appbytes.beautywallpaper.ui.main.collections.list.viewmodel.setLayout
 import com.appbytes.beautywallpaper.util.Constants
 import com.appbytes.beautywallpaper.util.ErrorHandling.Companion.isPaginationDone
 import com.appbytes.beautywallpaper.util.TopSpacingItemDecoration
+import com.appbytes.beautywallpaper.util.customLayoutManager
+import com.appbytes.beautywallpaper.util.getLayout
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_collections.*
@@ -165,17 +167,21 @@ class CollectionsFragment : BaseCollectionsFragment(R.layout.fragment_collection
         }
     }
 
+    override fun nextPage() {
+        Log.d(TAG, "CollectionsFragment next page callback call")
+        viewModel.collectionsNextPage()
+    }
+
 
     private fun initRecyclerView(){
 
         collections_recycler_view.apply {
-            val orientation = getResources().getConfiguration().orientation
-            if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-                layoutManager = GridLayoutManager(this@CollectionsFragment.context, 2)
-            }
-            else {
-                layoutManager = LinearLayoutManager(this@CollectionsFragment.context)
-            }
+            val orientation = resources.configuration.orientation
+            layoutManager = customLayoutManager(
+                land_scape = orientation,
+                layout = getLayout((activity as MainActivity).sharedPreferences, context),
+                context
+            )
             val topSpacingDecorator = TopSpacingItemDecoration(5)
             removeItemDecoration(topSpacingDecorator) // does nothing if not applied already
             addItemDecoration(topSpacingDecorator)
@@ -184,7 +190,7 @@ class CollectionsFragment : BaseCollectionsFragment(R.layout.fragment_collection
                 CollectionsAdapter(
                     interaction = this@CollectionsFragment
                 )
-            addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            /*addOnScrollListener(object: RecyclerView.OnScrollListener(){
 
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
@@ -195,16 +201,7 @@ class CollectionsFragment : BaseCollectionsFragment(R.layout.fragment_collection
                         viewModel.collectionsNextPage()
                     }
                 }
-
-                /*override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    if (dy > 0) {
-                        (activity as MainActivity).changeBottomNavigationstate(true)
-                    } else {
-                        (activity as MainActivity).changeBottomNavigationstate(false)
-
-                    }
-                }*/
-            })
+            })*/
             adapter = recyclerAdapter
         }
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
 
@@ -16,7 +17,12 @@
         <item
             android:id="@+id/menu_settings"
             android:icon="@drawable/ic_explore_active_icon"
-            android:title="Settings" />>
+            android:title="Settings" />
+
+        <item android:id="@+id/nav_switch"
+            app:actionLayout="@layout/dark_mood_switch"
+            android:title="Send"
+            android:icon="@drawable/bg_search"/>
 
     </group>
 

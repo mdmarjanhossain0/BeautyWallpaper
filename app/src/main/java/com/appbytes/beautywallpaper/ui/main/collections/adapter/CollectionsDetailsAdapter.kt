@@ -63,6 +63,7 @@ constructor(
 
     override fun getItemViewType(position: Int): Int {
         if(differ.currentList.size == (position + 1)){
+            interaction?.nextPage()
             return LOADING_ITEM
         }
         return IMAGE_ITEM
@@ -164,5 +165,7 @@ constructor(
         fun onItemSelected(position: Int, item: CacheImage)
 
         fun restoreListPosition()
+
+        fun nextPage()
     }
 }

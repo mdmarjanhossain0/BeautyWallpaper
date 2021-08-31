@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Marjan/.gradle/caches/transforms-3/6af8931552e8990104b779e895200c73/transformed/jetified-core-3.1.0/res/drawable/md_transparent.xml" value="0.13240740740740742" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/drawable-hdpi/bottomnav_selector.xml" value="0.15185185185185185" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/drawable/ic_back.xml" value="0.14351851851851852" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/drawable/ic_explore_active_icon.xml" value="0.14351851851851852" />
@@ -13,20 +14,23 @@
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout-land/widget_edit_home_pixel.xml" value="0.1728395061728395" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/activity_about.xml" value="0.129981884057971" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/activity_details.xml" value="0.17" />
-        <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/activity_main.xml" value="0.11" />
+        <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/dark_mood_switch.xml" value="0.25" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/fragment_details.xml" value="0.14356884057971014" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/fragment_download.xml" value="0.1" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/fragment_home_details.xml" value="0.1" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/item_collections.xml" value="0.1" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/item_download.xml" value="0.14" />
-        <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/item_test.xml" value="0.16" />
+        <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/item_loading.xml" value="0.1" />
+        <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/item_test.xml" value="0.25" />
+        <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/main_navigation_header.xml" value="0.16" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/settings_activity.xml" value="0.13994565217391305" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/toolbar_home.xml" value="0.1" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/layout/widget_edit_home_pixel.xml" value="0.1" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/menu/bottommenu.xml" value="0.18" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/menu/detail_menu.xml" value="0.33" />
-        <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/menu/drawer_menu.xml" value="0.1" />
+        <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/menu/drawer_menu.xml" value="0.18" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/menu/search_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Marjan/Desktop/Marjan/AndroidProject/BeautyWallpaper/app/src/main/res/xml/root_preferences.xml" value="0.25" />
       </map>

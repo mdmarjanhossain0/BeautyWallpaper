@@ -9,8 +9,19 @@ import kotlinx.coroutines.FlowPreview
 @FlowPreview
 @UseExperimental(ExperimentalCoroutinesApi::class)
 fun HomeViewModel.getPage(): Int{
-    return getCurrentViewStateOrNew().imageFields.page_number
-        ?: return 1
+    return if(calculatePageNumber() < 1) {
+        1
+    }
+    else {
+        calculatePageNumber() + 1
+    }
+}
+
+@ExperimentalCoroutinesApi
+fun HomeViewModel.calculatePageNumber() : Int {
+    val imageSize = getCurrentViewStateOrNew().imageFields.images?.size ?: return 0
+    var pageNumber = imageSize?.div(10)
+    return pageNumber?.toInt()!!
 }
 
 

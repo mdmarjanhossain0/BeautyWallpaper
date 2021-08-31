@@ -180,6 +180,11 @@ class CollectionsDetailsFragment : BaseCollectionsFragment(R.layout.fragment_col
         }
     }
 
+    override fun nextPage() {
+        Log.d(TAG, "CollectionsDetailsFragment next page callback call")
+        viewModel.collectionsDetailsNextPage(args.collectionsId)
+    }
+
 
     private fun initRecyclerView(){
 
@@ -191,7 +196,7 @@ class CollectionsDetailsFragment : BaseCollectionsFragment(R.layout.fragment_col
             else {
                 layoutManager = LinearLayoutManager(this@CollectionsDetailsFragment.context)
             }
-            val topSpacingDecorator = TopSpacingItemDecoration(5)
+            val topSpacingDecorator = TopSpacingItemDecoration(0)
             removeItemDecoration(topSpacingDecorator) // does nothing if not applied already
             addItemDecoration(topSpacingDecorator)
 
@@ -199,7 +204,7 @@ class CollectionsDetailsFragment : BaseCollectionsFragment(R.layout.fragment_col
                 CollectionsDetailsAdapter(
                     interaction = this@CollectionsDetailsFragment
                 )
-            addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            /*addOnScrollListener(object: RecyclerView.OnScrollListener(){
 
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
@@ -210,7 +215,7 @@ class CollectionsDetailsFragment : BaseCollectionsFragment(R.layout.fragment_col
                         viewModel.collectionsDetailsNextPage(args.collectionsId)
                     }
                 }
-            })
+            })*/
             adapter = recyclerAdapter
         }
     }

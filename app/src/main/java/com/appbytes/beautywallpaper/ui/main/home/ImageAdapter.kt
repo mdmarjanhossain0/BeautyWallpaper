@@ -63,6 +63,7 @@ class ImageAdapter
 
     override fun getItemViewType(position: Int): Int {
         if(differ.currentList.size == (position + 1)){
+            interaction?.nextPage()
             return LOADING_ITEM
         }
         return IMAGE_ITEM
@@ -189,5 +190,7 @@ class ImageAdapter
         fun onLikeClick(position: Int, item: CacheImage)
 
         fun onDownloadClick(position: Int, item: CacheImage)
+
+        fun nextPage()
     }
 }

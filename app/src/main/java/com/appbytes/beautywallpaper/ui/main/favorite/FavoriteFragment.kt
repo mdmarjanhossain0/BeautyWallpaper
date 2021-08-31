@@ -31,10 +31,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 @AndroidEntryPoint
 class FavoriteFragment : BaseFavoriteFragment(R.layout.fragment_home), FavoriteImageAdapter.Interaction {
 
-    private val TAG = "HomeFragment"
-
-    /*@Inject
-    lateinit var mainApiService: MainApiService*/
+    private val TAG = "FavoriteFragment"
 
     private lateinit var recyclerAdapter: FavoriteImageAdapter
 
@@ -87,23 +84,12 @@ class FavoriteFragment : BaseFavoriteFragment(R.layout.fragment_home), FavoriteI
                     Log.d("AppDebug", "paginationDone")
                 }
                 viewModel.clearStateMessage()
-                /*else{
-                    uiCommunicationListener.onResponseReceived(
-                            response = it.response,
-                            stateMessageCallback = object: StateMessageCallback {
-                                override fun removeMessageFromStack() {
-                                    viewModel.clearStateMessage()
-                                }
-                            }
-                    )
-                }*/
             }
         })
     }
 
     override fun onResume() {
         viewModel.getFromCache()
-//        (activity as MainActivity).drawerToggle.syncState()
         (activity as MainActivity).hamburgerArrow(true)
         super.onResume()
     }

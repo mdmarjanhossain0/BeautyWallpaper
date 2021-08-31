@@ -71,8 +71,8 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
     val viewModel: HomeViewModel by viewModels()
 
 
-    @Inject
-    lateinit var sharePreference : SharedPreferences
+    /*@Inject
+    lateinit var sharePreference : SharedPreferences*/
 
 
 
@@ -120,15 +120,13 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
             Log.d(TAG, "Data " + viewState.imageFields?.images?.size)
             val images = viewState.imageFields.images
-            if(images?.size != 0 ) {
+            if(images?.size!! > 0 ) {
                 isSizeZero = false
                 no_details!!.visibility = View.GONE
                 if(skeleton.isSkeleton()){
                     skeleton.showOriginal()
                 }
-                if(images != null) {
-                    recyclerAdapter.submitList(images!!)
-                }
+                recyclerAdapter.submitList(images!!)
             }
             else {
                 isSizeZero = true
@@ -208,13 +206,18 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
         download(item)
     }
 
+    override fun nextPage() {
+        Log.d(TAG, "Next Page Callback call")
+        viewModel.nextPage()
+    }
+
 
     private fun initRecyclerView(){
         test_recycler_view.apply {
             val orientation = resources.configuration.orientation
             layoutManager = customLayoutManager(
                 land_scape = orientation,
-                layout = getLayout(sharePreference, context),
+                layout = getLayout((activity as MainActivity).sharedPreferences, context),
                 context
             )
             val topSpacingDecorator = TopSpacingItemDecoration(0)
@@ -224,7 +227,7 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
             recyclerAdapter = ImageAdapter(
                 interaction = this@HomeFragment
             )
-            addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            /*addOnScrollListener(object: RecyclerView.OnScrollListener(){
 
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
@@ -239,14 +242,8 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
                 }
 
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    /*if (dy > 0) {
-                        (activity as MainActivity).changeBottomNavigationstate(true)
-                    } else {
-                        (activity as MainActivity).changeBottomNavigationstate(false)
-
-                    }*/
                 }
-            })
+            })*/
             adapter = recyclerAdapter
         }
     }

@@ -13,8 +13,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.appbytes.beautywallpaper.R
 import com.appbytes.beautywallpaper.models.DownloadItem
+import com.appbytes.beautywallpaper.ui.main.MainActivity
 import com.appbytes.beautywallpaper.ui.main.download.viewmodel.DownloadViewModel
 import com.appbytes.beautywallpaper.util.TopSpacingItemDecoration
+import com.appbytes.beautywallpaper.util.customLayoutManager
+import com.appbytes.beautywallpaper.util.getLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_download.*
 
@@ -46,12 +49,12 @@ class DownloadFragment : Fragment(R.layout.fragment_download), DownloadAdapter.I
     private fun initRecyclerAdapter() {
         adapter = DownloadAdapter(this@DownloadFragment)
         downloade_recycler_view.apply {
-            val orientation = getResources().getConfiguration().orientation
-            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                layoutManager = GridLayoutManager(this@DownloadFragment.context, 2)
-            } else {
-                layoutManager = GridLayoutManager(this@DownloadFragment.context, 2)
-            }
+            val orientation = resources.configuration.orientation
+            layoutManager = customLayoutManager(
+                land_scape = orientation,
+                layout = getLayout((activity as MainActivity).sharedPreferences, context),
+                context
+            )
             val topSpacingDecorator = TopSpacingItemDecoration(5)
             removeItemDecoration(topSpacingDecorator) // does nothing if not applied already
             addItemDecoration(topSpacingDecorator)

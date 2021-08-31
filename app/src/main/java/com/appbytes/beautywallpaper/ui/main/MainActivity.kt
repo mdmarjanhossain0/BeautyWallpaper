@@ -31,6 +31,7 @@ import com.appbytes.beautywallpaper.ui.main.search.SearchDetailsFragment
 import com.appbytes.beautywallpaper.ui.settings.SettingsActivity
 import com.appbytes.beautywallpaper.util.BOTTOM_NAV_BACKSTACK_KEY
 import com.appbytes.beautywallpaper.util.BottomNavController
+import com.appbytes.beautywallpaper.util.Constants
 import com.appbytes.beautywallpaper.util.setUpNavigation
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -39,6 +40,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_home.*
 import kotlinx.android.synthetic.main.toolbar_home.tool_bar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -66,7 +70,8 @@ class MainActivity : AppCompatActivity(),
     var downloadFragmentFactory = DownloadFragmentFactory()
 
 
-    private lateinit var sharedPreferences: SharedPreferences
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
 
     lateinit var navController: NavController
@@ -95,12 +100,16 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun testing() {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        val theme = sharedPreferences.getString(
-            getString(R.string.key_theme),
-            getString(R.string.default_theme)
-        )
-        Log.d(TAG, "Test Share Preference Theme " + theme.toString())
+        val t1 = 11 /10
+        val t2 = 15 /10
+        val t3 = 16 /10
+        val t4 = 17 /10
+        val t5 = 39 /10
+        Log.d(TAG, "11" + t1.toInt())
+        Log.d(TAG, "15" + t2.toInt())
+        Log.d(TAG, "16" + t3.toInt())
+        Log.d(TAG, "17" + t4.toInt())
+        Log.d(TAG, "39" + t5.toInt())
     }
 
 
@@ -227,7 +236,6 @@ class MainActivity : AppCompatActivity(),
     @SuppressLint("RestrictedApi")
     public fun hamburgerArrow(isShow : Boolean) {
         drawerToggle.isDrawerIndicatorEnabled = isShow
-//        setSupportActionBar(tool_bar)
         if(isShow) {
             drawerToggle.syncState()
         }
@@ -237,12 +245,9 @@ class MainActivity : AppCompatActivity(),
             supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
             drawerToggle.setHomeAsUpIndicator(R.drawable.ic_back)
         }
-//        drawerToggle.syncState()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-//        item.isChecked = true
-
         drawerLayout.closeDrawers()
 
         val id: Int = item.itemId

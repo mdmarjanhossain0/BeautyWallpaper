@@ -118,5 +118,7 @@
     <string name="default_thumb">small</string>
     <string name="default_wallpaper">regular</string>
     <string name="default_download">raw</string>
+    <string name="header_title">Beauty Wallpaper</string>
+    <string name="header_text">Unsplash Api Base Wallpaper App</string>
 
 </resources>
