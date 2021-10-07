@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/menu_favorite"
+            android:id="@+id/Favorite"
             android:icon="@drawable/ic_favourite_active_icon"
             android:title="Favorite" />
 
         <item
-            android:id="@+id/menu_download"
-            android:icon="@drawable/ic_download"
-            android:title="Downlaod" />
-
-        <item
-            android:id="@+id/menu_settings"
+            android:id="@+id/Settings"
             android:icon="@drawable/ic_explore_active_icon"
-            android:title="Settings" />
-
-        <item android:id="@+id/nav_switch"
-            app:actionLayout="@layout/dark_mood_switch"
-            android:title="Send"
-            android:icon="@drawable/bg_search"/>
+            android:title="Settings" />>
 
     </group>
 

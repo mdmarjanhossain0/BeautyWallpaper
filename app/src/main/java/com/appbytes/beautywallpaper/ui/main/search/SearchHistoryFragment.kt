@@ -227,8 +227,8 @@ class SearchHistoryFragment : BaseSearchFragment(R.layout.fragment_search_histor
 
 
     private fun navigateSearchResultFragment( key : String ) {
-        val action = SearchHistoryFragmentDirections.actionSearchHistoryFragmentToSearchResultFragment(key)
-        findNavController().navigate(action)
+        /*val action = SearchHistoryFragmentDirections.actionSearchHistoryFragmentToSearchResultFragment(key)
+        findNavController().navigate(action)*/
     }
 
 

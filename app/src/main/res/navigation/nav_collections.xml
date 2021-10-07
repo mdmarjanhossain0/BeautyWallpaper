@@ -16,10 +16,12 @@
         android:id="@+id/collectionsDetailsFragment"
         android:name="com.appbytes.beautywallpaper.ui.main.collections.detailslist.CollectionsDetailsFragment"
         android:label="CollectionsDetailsFragment" >
+
         <argument
             android:name="collectionsId"
             app:argType="string"
             android:defaultValue="testId" />
+
         <action
             android:id="@+id/action_collectionsDetailsFragment_to_collectionsFragment"
             app:destination="@id/collectionsFragment" />

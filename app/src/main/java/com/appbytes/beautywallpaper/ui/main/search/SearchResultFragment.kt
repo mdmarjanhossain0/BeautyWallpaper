@@ -41,14 +41,14 @@ class SearchResultFragment : BaseSearchFragment(R.layout.fragment_search_result)
     private lateinit var searchView: SearchView
 
 
-    private val args : SearchResultFragmentArgs by navArgs()
+//    private val args : SearchResultFragmentArgs by navArgs()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Restore state after process death
 
-        Log.d(TAG, "Search Query " + args.searchKey)
+//        Log.d(TAG, "Search Query " + args.searchKey)
 
         savedInstanceState?.let { inState ->
             Log.d(TAG, "SearchViewState: inState is NOT null")
@@ -99,7 +99,7 @@ class SearchResultFragment : BaseSearchFragment(R.layout.fragment_search_result)
 
 
     override fun onResume() {
-        viewModel.refreshFromCache(args.searchKey)
+//        viewModel.refreshFromCache(args.searchKey)
         super.onResume()
     }
 
@@ -117,7 +117,7 @@ class SearchResultFragment : BaseSearchFragment(R.layout.fragment_search_result)
     }
 
     override fun onItemSelected(position: Int, item: CacheImage) {
-        findNavController().navigate(R.id.action_homeFragment_to_homeDetailsFragment)
+//        findNavController().navigate(R.id.action_homeFragment_to_homeDetailsFragment)
     }
 
 

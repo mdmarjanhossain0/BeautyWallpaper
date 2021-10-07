@@ -11,6 +11,9 @@ const val COLLECTIONS_STATE_BUNDLE_KEY = "com.appbytes.beautywallpaper.ui.main.c
 data class CollectionsState
 (
         var collectionsFields : CollectionsFields = CollectionsFields(),
+
+
+        var detailsImage : Int = 1
 ) : Parcelable {
 
     @Parcelize

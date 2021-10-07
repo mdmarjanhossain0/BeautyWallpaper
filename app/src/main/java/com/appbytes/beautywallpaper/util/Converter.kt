@@ -12,7 +12,7 @@ class Converter {
 
         fun makeImage(networkObjects: List<Image>) : List<CacheImage> {
             var images : ArrayList<CacheImage> = ArrayList()
-            for ( obj in networkObjects) {
+            for ( obj in networkObjects.results) {
                 images.add(
                         CacheImage(
                             id = obj.id,

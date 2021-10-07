@@ -71,3 +71,28 @@ data class PreviewPhotos (
         @SerializedName("urls") var urls : Urls
 
 )
+
+
+data class Tags (
+
+        @SerializedName("type") var type : String,
+        @SerializedName("title") var title : String
+
+)
+
+
+
+
+
+
+
+
+data class PreviewPhotos (
+
+        @SerializedName("id") var id : String,
+        @SerializedName("created_at") var createdAt : String,
+        @SerializedName("updated_at") var updatedAt : String,
+        @SerializedName("blur_hash") var blurHash : String,
+        @SerializedName("urls") var urls : Urls
+
+)

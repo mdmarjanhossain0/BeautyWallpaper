@@ -76,6 +76,10 @@ class HomeFragment : BaseHomeFragment(R.layout.fragment_home), ImageAdapter.Inte
 
 
 
+    val viewModel: HomeViewModel by viewModels()
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
