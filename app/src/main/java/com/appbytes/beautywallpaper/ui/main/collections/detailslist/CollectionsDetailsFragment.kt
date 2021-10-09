@@ -72,7 +72,7 @@ class CollectionsDetailsFragment : BaseCollectionsFragment(R.layout.fragment_col
                 Log.d(TAG, "HomeViewState: restoring view state: ${viewState}")
                 Log.d(TAG, "Restore Data " + viewState.collectionsDetailsFields?.collectionsImages?.size)
                 viewModel.setViewState(viewState)
-//                viewModel.refreshFromCacheCollectionsDetails(args.collectionsId)
+                viewModel.refreshFromCacheCollectionsDetails(args.collectionsId)
             }
         }
     }
